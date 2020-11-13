@@ -1,0 +1,13 @@
+with 
+aa(cdscod,cds,year,num) as (
+select a.cdscod, cds, substr(dtappello, -4) as year, count(*) as num
+from appelli as a Join iscrizioni as i on a.appcod=i.appcod join cds as c on c.cdscod=a.cdscod
+group by a.cdscod, year
+),
+ bb(cdscod,cds,year,num) as (
+ select cdscod, cds, substr(dtappello, -2) as year, count(*) as num
+from bos_denormalizzato
+group by cdscod, year
+)
+select aa.cds, aa.year, aa.num, bb.num as num_denorm
+from aa join bb on aa.cdscod=bb.cdscod and substr(aa.year,-2)=bb.year;
