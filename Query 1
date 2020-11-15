@@ -11,3 +11,5 @@ group by cdscod, year
 )
 select aa.cds, aa.year, aa.num, bb.num as num_denorm
 from aa join bb on aa.cdscod=bb.cdscod and substr(aa.year,-2)=bb.year;
+
+-- Prova
