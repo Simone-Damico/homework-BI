@@ -39,3 +39,55 @@ WHERE a.adcod IN (
     LIMIT 10
     )
 order by a.cdscod, a.year, a.ratio ASC
+
+-- query 31select res.CdS, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti as tasso_commit
+from (select *
+from(select c.cdscod, cds, dtappello, sum(count) as sum_commit
+      from (select cds.cdscod, cds, dtappello, count(distinct ad) as count
+            from (cds join appelli on cds.cdscod=appelli.cdscod) join ad on
+                appelli.adcod=ad.adcod
+            group by dtappello, cds) as c
+      where count>1
+      group by c.cds) as commited join
+
+    (select c2.cdscod, cds, dtappello, sum(count) as sum_tutti
+      from (select cds.cdscod, cds, dtappello, count(distinct ad) as count
+            from (cds join appelli on cds.cdscod=appelli.cdscod) join ad on appelli.adcod=ad.adcod
+            group by dtappello, cds) as c2
+        group by c2.cds) as tutti
+    on tutti.CdS=commited.CdS) as res
+order by tasso_commit desc
+limit 10
+
+-- query 4
+create view media_voto_norm as
+SELECT a.cdscod, cds, a.adcod, ad, avg(Voto)
+FROM iscrizioni join appelli a on iscrizioni.appcod = a.appcod join
+    cds on a.cdscod = cds.cdscod join
+    ad on a.adcod = ad.adcod
+where Superamento = 1 and Voto is not null
+group by a.cdscod, CdS, a.adcod, AD
+
+-- migliori 3
+SELECT *
+FROM media_voto_norm AS a
+WHERE a.adcod IN (
+    SELECT b.adcod
+    FROM media_voto_norm AS b
+    where b.cdscod=a.cdscod and b."avg(Voto)" is not null
+    ORDER BY b.cdscod, b."avg(Voto)" DESC
+    LIMIT 3
+    )
+order by a.cdscod, a."avg(Voto)" DESC
+
+-- peggiori 3
+SELECT *
+FROM media_voto_norm AS a
+WHERE a.adcod IN (
+    SELECT b.adcod
+    FROM media_voto_norm AS b
+    where b.cdscod=a.cdscod and b."avg(Voto)" is not null
+    ORDER BY b.cdscod, b."avg(Voto)"
+    LIMIT 3
+    )
+order by a.cdscod, a."avg(Voto)"

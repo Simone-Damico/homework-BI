@@ -25,3 +25,53 @@ WHERE a.adcod IN (
     LIMIT 10
     )
 order by a.cdscod, a.year, a.ratio ASC
+
+-- query 3
+select res.CdS, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti as tasso_commit
+from ((select *, sum(commited.count_tutti) as sum_tutti
+     from (SELECT CdS, DtAppello, count(distinct ad) as count_tutti
+            FROM bos_denormalizzato
+            group by DtAppello, CdS) as commited
+    group by commited.CdS) as tutti join
+
+    (select *, sum(commited.count_commit) as sum_commit
+     from (SELECT CdS, DtAppello, count(distinct ad) as count_commit
+            FROM bos_denormalizzato
+            group by DtAppello, CdS) as commited
+    where commited.count_commit > 1
+    group by commited.CdS) as commited on
+        tutti.CdS=commited.CdS and tutti.DtAppello=commited.DtAppello) as res
+group by res.CdS
+order by tasso_commit DESC
+limit 10
+
+-- query 4
+create view media_esami as
+select CdSCod, CdS, AdCod, AD, avg(Voto) as voto_medio
+from bos_denormalizzato
+where Superamento = 1
+group by CdSCod, CdS, AdCod, AD
+
+-- peggiori 3
+SELECT *
+FROM media_esami AS a
+WHERE a.adcod IN (
+    SELECT b.adcod
+    FROM media_esami AS b
+    where b.cdscod=a.cdscod and b.voto_medio is not null
+    ORDER BY b.cdscod, b.voto_medio ASC
+    LIMIT 3
+    )
+order by a.cdscod, a.voto_medio ASC
+
+-- migliori 3
+SELECT *
+FROM media_esami AS a
+WHERE a.adcod IN (
+    SELECT b.adcod
+    FROM media_esami AS b
+    where b.cdscod=a.cdscod and b.voto_medio is not null
+    ORDER BY b.cdscod, b.voto_medio DESC
+    LIMIT 3
+    )
+order by a.cdscod, a.voto_medio DESC
