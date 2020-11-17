@@ -75,3 +75,73 @@ WHERE a.adcod IN (
     LIMIT 3
     )
 order by a.cdscod, a.voto_medio DESC
+
+-- quety 6
+select a.adcod, a.AD, a.cds, avg(a.tent) as tentativi
+from (select AdCod, CdS, ad, count(*) -1 as tent
+    from bos_denormalizzato
+    group by Studente, ad, AdCod, CdS) as a
+group by a.adcod, a.AD
+order by tentativi DESC
+limit 3
+
+-- query 7: media voti a seconda della residenza
+select a.CdS, a.StuResArea, avg(a.tent) as tentativi
+from (select CdS, StuResArea, count(*) -1 as tent
+    from bos_denormalizzato
+    group by Studente, StuResArea, CdS, AD) as a
+group by a.CdS, a.StuResArea
+order by tentativi DESC
+
+-- query 7: crediti di merito
+-- view media 27
+CREATE VIEW media_27 as
+select v27.CdSCod, v27.CdS, count(v27.voto27) as media_27
+                from
+             (select CdSCod, cds, avg(Voto) as voto27
+                  from bos_denormalizzato
+                  group by Studente, CdS, CdSCod
+                  having voto27 >= 27
+                     and voto27 < 28) as v27
+            group by v27.CdS, v27.CdSCod;
+
+-- view media 28
+CREATE VIEW media_28 as
+select v28.CdSCod, v28.CdS, count(v28.voto28) as media_28
+                from
+                (select CdSCod, cds, avg(Voto) as voto28
+                 from bos_denormalizzato
+                 group by Studente, CdS
+                 having voto28 >= 28
+                    and voto28 < 29)  as v28
+                group by v28.CdS, v28.CdSCod;
+
+-- view mwedia 29-30
+CREATE VIEW media_2930 as
+select v2930.CdSCod, v2930.CdS, count(v2930.voto2930) as media_2930
+            from
+            (select CdSCod, cds, avg(Voto) as voto2930
+             from bos_denormalizzato
+             group by Studente, CdS
+             having voto2930 >= 29)  as v2930
+            group by v2930.CdS, v2930.CdSCod;
+
+--  view per la prime unione
+CREATE VIEW media2728_1 as
+select *
+from media_27 left join media_28 on media_27.CdSCod=media_28.CdSCod
+union all
+select *
+from media_28 left join media_27 on media_27.CdSCod=media_28.CdSCod
+where media_27.CdSCod is null;
+
+-- query
+select res.CdSCod, res.cds, res.media_27, res.media_28, res.media_2930,
+       res.media_27*125+res.media_28*250+res.media_2930*500 as cred_merito
+from (select *
+from media2728_1 join media_2930 on media2728_1.CdSCod=media_2930.CdSCod
+union
+select *
+from media2728_1 join media_2930 on media2728_1.CdSCod=media_2930.CdSCod
+where media2728_1.CdSCod is null) as res
+order by cred_merito desc
