@@ -92,6 +92,21 @@ WHERE a.adcod IN (
     )
 order by a.cdscod, a."avg(Voto)"
 
+-- query 5
+-- normalizzazione date
+select adcod, dtappello,
+    CASE
+        when dtappello like '__/_/%'
+            then date(substr(dtappello,-4)||'-0'||substr(dtappello, 4,1)||'-'||substr(dtappello,1,2))
+        when dtappello like '_/_/%'
+            then date(substr(dtappello,-4)||'-0'||substr(dtappello, 3,1)||'-0'||substr(dtappello,1,1))
+        when dtappello like '_/__/%'
+            then date(substr(dtappello,-4)||'-'||substr(dtappello, 3,2)||'-0'||substr(dtappello,1,1))
+        when dtappello like '__/__/%'
+            then date(substr(dtappello,-4)||'-'||substr(dtappello, 1,2)||'-'||substr(dtappello,4,2))
+        end "date_norm"
+from appelli
+
 
 -- query 6
 select a.adcod, a.AD, a.cds, avg(a.tent) as tentativi
