@@ -103,7 +103,7 @@ select adcod, dtappello,
         when dtappello like '_/__/%'
             then date(substr(dtappello,-4)||'-'||substr(dtappello, 3,2)||'-0'||substr(dtappello,1,1))
         when dtappello like '__/__/%'
-            then date(substr(dtappello,-4)||'-'||substr(dtappello, 1,2)||'-'||substr(dtappello,4,2))
+            then date(substr(dtappello,-4)||'-'||substr(dtappello, 4,2)||'-'||substr(dtappello,1,2))
         end "date_norm"
 from appelli
 
