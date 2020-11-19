@@ -76,6 +76,65 @@ WHERE a.adcod IN (
     )
 order by a.cdscod, a.voto_medio DESC
 
+-- query 5
+CREATE TEMPORARY TABLE median AS
+SELECT count(*) as c FROM bos_denormalizzato group by Studente
+order by c;
+
+select *
+from (SELECT cast(((min(rowid)+max(rowid))/2) as int) as midrow
+FROM median) as t, median
+where median.ROWID = t.midrow
+
+-- mediana = 7
+
+-- studenti considerati
+select *
+from bos_denormalizzato
+where Studente in (select median.Studente
+                    from median
+                    where c>=(select c
+                            from (SELECT cast(((min(rowid)+max(rowid))/2) as int) as midrow
+                            FROM median) as t, median
+                            where median.ROWID = t.midrow))
+
+-- finale
+drop table median
+CREATE TEMPORARY TABLE median AS
+SELECT Studente, count(*) as c FROM bos_denormalizzato group by Studente
+order by c;
+
+create temporary table fast_furious as
+-- studenti considerati
+select stu.Studente, avg_voto as avg_voto, c as num_esami, max(stu.date_norm) as max, min(stu.date_norm) as min,
+             julianday(max(stu.date_norm)) - julianday(min(date_norm)) as diff_day
+      from (select *,
+          CASE
+              when DtAppello like '__/__/%'
+                  then date('20'||substr(dtappello,-2)||'-'||substr(dtappello, 4,2)||'-'||substr(dtappello,1,2))
+              end "date_norm"
+      from bos_denormalizzato
+      where Studente in (select median.Studente
+                          from median
+                          where c>=(select c
+                                  from (SELECT cast(((min(rowid)+max(rowid))/2) as int) as midrow
+                                  FROM median) as t, median
+                                  where median.ROWID = t.midrow))) as stu join (
+                                      select Studente, avg(Voto) as avg_voto
+                                      from bos_denormalizzato
+                                      where Voto is not null
+                                      group by Studente
+          ) as avg_media_tab on stu.Studente=avg_media_tab.Studente join median on stu.Studente=median.Studente
+
+      group by stu.Studente
+
+-- query 5
+select *, 0.5*r.avg_voto_norm+0.5*(1-r.diff_day_norm) as ratio
+from (select *, (diff_day/(select max(diff_day) from fast_furious)) as diff_day_norm,
+             (avg_voto/(select max(avg_voto) from fast_furious)) as avg_voto_norm
+from fast_furious) as r
+order by ratio desc
+
 -- quety 6
 select a.adcod, a.AD, a.cds, avg(a.tent) as tentativi
 from (select AdCod, CdS, ad, count(*) -1 as tent
