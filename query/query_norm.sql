@@ -108,7 +108,7 @@ select adcod, dtappello,
 from appelli
 
                                                                                      
-                                                                                     CREATE TEMPORARY TABLE median AS
+CREATE TEMPORARY TABLE median AS
 SELECT count(*) as c FROM iscrizioni join appelli on iscrizioni.appcod=appelli.appcod
                 join ad on appelli.adcod=ad.adcod
                 join cds c on appelli.cdscod = c.cdscod group by Studente
@@ -121,11 +121,9 @@ where median.ROWID = t.midrow
 
 -- mediana = 7
 
-
-
 drop table fast_furious_norm
 create temporary table fast_furious_norm as
-select stu.Studente, avg_voto as avg_voto, c as num_esami, julianday(max(stu.date_norm)) as max, julianday(min(stu.date_norm)) as min,
+select stu.cdscod, stu.cds, stu.Studente, avg_voto as avg_voto, c as num_esami, julianday(max(stu.date_norm)) as max, julianday(min(stu.date_norm)) as min,
      julianday(max(stu.date_norm)) - julianday(min(stu.date_norm)) as diff_day
       from (select *,
              CASE
@@ -165,15 +163,17 @@ select stu.Studente, avg_voto as avg_voto, c as num_esami, julianday(max(stu.dat
                                       group by Studente
                                       ) as avg_media_tab 
                                           on stu.Studente=avg_media_tab.Studente join median on stu.Studente=median.Studente
-      group by stu.Studente
+      group by stu.Studente, stu.cdscod
       order by diff_day;
       
 select *, studente, 0.5*r.avg_voto_norm+0.5*(1-r.diff_day_norm) as ratio
 from (select *, (diff_day/(select max(diff_day) from fast_furious_norm)) as diff_day_norm,
              (avg_voto/(select max(avg_voto) from fast_furious_norm)) as avg_voto_norm
 from fast_furious_norm) as r
-order by ratio desc;
-
+order by cdscod,ratio desc;
+              
+              
+              
 -- query 6
 select a.adcod, a.AD, a.cds, avg(a.tent) as tentativi
 from (select ad.AdCod, CdS, ad, count(*) -1 as tent
