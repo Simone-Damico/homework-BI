@@ -107,6 +107,72 @@ select adcod, dtappello,
         end "date_norm"
 from appelli
 
+                                                                                     
+                                                                                     CREATE TEMPORARY TABLE median AS
+SELECT count(*) as c FROM iscrizioni join appelli on iscrizioni.appcod=appelli.appcod
+                join ad on appelli.adcod=ad.adcod
+                join cds c on appelli.cdscod = c.cdscod group by Studente
+order by c;
+
+select *
+from (SELECT cast(((min(rowid)+max(rowid))/2) as int) as midrow
+FROM median) as t, median
+where median.ROWID = t.midrow
+
+-- mediana = 7
+
+
+
+drop table fast_furious_norm
+create temporary table fast_furious_norm as
+select stu.Studente, avg_voto as avg_voto, c as num_esami, julianday(max(stu.date_norm)) as max, julianday(min(stu.date_norm)) as min,
+     julianday(max(stu.date_norm)) - julianday(min(stu.date_norm)) as diff_day
+      from (select *,
+             CASE
+        when dtappello like '__/_/%'
+            then date(substr(dtappello,-4)||'-0'||substr(dtappello, 4,1)||'-'||substr(dtappello,1,2))
+        when dtappello like '_/_/%'
+            then date(substr(dtappello,-4)||'-0'||substr(dtappello, 3,1)||'-0'||substr(dtappello,1,1))
+        when dtappello like '_/__/%'
+            then date(substr(dtappello,-4)||'-'||substr(dtappello, 3,2)||'-0'||substr(dtappello,1,1))
+        when dtappello like '__/__/%'
+            then date(substr(dtappello,-4)||'-'||substr(dtappello, 4,2)||'-'||substr(dtappello,1,2))
+        end "date_norm"
+      from iscrizioni join appelli on iscrizioni.appcod=appelli.appcod
+                join ad on appelli.adcod=ad.adcod
+                join cds c on appelli.cdscod = c.cdscod
+      where Studente in 
+                      (     
+                        select median.Studente
+                        from median
+                        where c>=
+                              (
+                              select c
+                              from 
+                                  (
+                                  SELECT cast(((min(rowid)+max(rowid))/2) as int) as midrow
+                                  FROM median
+                                  ) as t,
+                                  median
+                                  where median.ROWID = t.midrow))) as stu 
+                                  join 
+                                      (
+                                      select Studente, avg(Voto) as avg_voto
+                                      from iscrizioni join appelli on iscrizioni.appcod=appelli.appcod
+                                          join ad on appelli.adcod=ad.adcod
+                                          join cds c on appelli.cdscod = c.cdscod
+                                      where Voto is not null
+                                      group by Studente
+                                      ) as avg_media_tab 
+                                          on stu.Studente=avg_media_tab.Studente join median on stu.Studente=median.Studente
+      group by stu.Studente
+      order by diff_day;
+      
+select *, studente, 0.5*r.avg_voto_norm+0.5*(1-r.diff_day_norm) as ratio
+from (select *, (diff_day/(select max(diff_day) from fast_furious_norm)) as diff_day_norm,
+             (avg_voto/(select max(avg_voto) from fast_furious_norm)) as avg_voto_norm
+from fast_furious_norm) as r
+order by ratio desc;
 
 -- query 6
 select a.adcod, a.AD, a.cds, avg(a.tent) as tentativi
