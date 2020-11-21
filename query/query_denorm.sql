@@ -1,3 +1,14 @@
+-- query 1 --> line chart
+SELECT cdscod, cds, "20"||substr(dtappello, -2) AS year,
+       CASE
+          when DtAppello like '__/__/%'
+              then date('20'||substr(dtappello,-2)||'-'||substr(dtappello, 4,2)||'-'||substr(dtappello,1,2))
+          end data, count(*) AS num
+FROM bos_denormalizzato
+GROUP BY year, DtAppello, cdscod, cds
+order by data asc
+
+
 -- View query 2
 create view iscr_sup_ratio as
       select res.cdscod, res.CdS, res.year, res.adcod, res.ad, res.num_iscr, IFNULL(res.passati, 0) as passati,
@@ -104,29 +115,28 @@ CREATE TEMPORARY TABLE median AS
 SELECT Studente, count(*) as c FROM bos_denormalizzato group by Studente
 order by c;
 
+drop table fast_furious;
 create temporary table fast_furious as
 -- studenti considerati
-select stu.Studente, avg_voto as avg_voto, c as num_esami, max(stu.date_norm) as max, min(stu.date_norm) as min,
+select stu.CdSCod, stu.CdS, stu.Studente, avg_voto as avg_voto, median.c as num_esami, max(stu.date_norm) as max, min(stu.date_norm) as min,
              julianday(max(stu.date_norm)) - julianday(min(date_norm)) as diff_day
       from (select *,
           CASE
               when DtAppello like '__/__/%'
                   then date('20'||substr(dtappello,-2)||'-'||substr(dtappello, 4,2)||'-'||substr(dtappello,1,2))
               end "date_norm"
-      from bos_denormalizzato
-      where Studente in (select median.Studente
-                          from median
-                          where c>=(select c
-                                  from (SELECT cast(((min(rowid)+max(rowid))/2) as int) as midrow
-                                  FROM median) as t, median
-                                  where median.ROWID = t.midrow))) as stu join (
-                                      select Studente, avg(Voto) as avg_voto
+      from selected_stu as ss left join bos_denormalizzato as d on d.CdS = ss.CdS and
+                                                     d.CdSCod=ss.CdSCod and
+                                                     d.Studente=ss.Studente) as stu left join (
+                                      select CdSCod, CdS, Studente, avg(Voto) as avg_voto
                                       from bos_denormalizzato
                                       where Voto is not null
-                                      group by Studente
-          ) as avg_media_tab on stu.Studente=avg_media_tab.Studente join median on stu.Studente=median.Studente
+                                      group by Studente, CdSCod, CdS
+          ) as avg_media_tab on stu.Studente=avg_media_tab.Studente left join median on stu.Studente=median.Studente and
+                                                                                        stu.CdSCod=median.CdSCod and
+                                                                                        stu.CdS=median.CdS
 
-      group by stu.Studente
+      group by stu.Studente, stu.CdSCod, stu.CdS;
 
 -- query 5
 select *, 0.5*r.avg_voto_norm+0.5*(1-r.diff_day_norm) as ratio
