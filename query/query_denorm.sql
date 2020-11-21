@@ -6,12 +6,13 @@ SELECT cdscod, cds, "20"||substr(dtappello, -2) AS year,
           END data, count(*) AS num
 FROM bos_denormalizzato
 GROUP BY year, DtAppello, cdscod, cds
-order by data asc
+order by data;
+
 
 -- query 2
 DROP TABLE IF EXISTS iscr_sup_ratio;
 CREATE TEMPORARY TABLE iscr_sup_ratio AS
-    SELECT res.cdscod, res.CdS, res.year, res.adcod, res.ad, res.num_iscr,
+    SELECT res.cdscod AS cdscod, res.CdS AS cds, res.year AS year, res.adcod AS adcod, res.ad AS ad, res.num_iscr AS num_iscr,
            IFNULL(res.passati, 0) AS passati, IFNULL(res.passati, 0)*100.0/res.num_iscr AS ratio
     FROM (
         SELECT bos_denormalizzato.adcod, bos_denormalizzato.CdS, bos_denormalizzato.ad,
@@ -29,6 +30,7 @@ CREATE TEMPORARY TABLE iscr_sup_ratio AS
     GROUP BY bos_denormalizzato.adcod, substr(dtappello,-2), bos_denormalizzato.cdscod,
              bos_denormalizzato.ad) AS res;
 
+
 -- query 2
 SELECT *
 FROM iscr_sup_ratio AS a
@@ -39,7 +41,8 @@ WHERE a.adcod IN (
     ORDER BY b.cdscod, b.year, b.ratio
     LIMIT 10
     )
-ORDER BY a.cdscod, a.year, a.ratio
+ORDER BY a.cdscod, a.year, a.ratio;
+
 
 -- query 3
 SELECT res.CdS, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti AS tasso_commit
@@ -61,7 +64,8 @@ FROM ((
                                           tutti.DtAppello=commited.DtAppello) AS res
 GROUP BY res.CdS
 ORDER BY tasso_commit DESC
-LIMIT 10
+LIMIT 10;
+
 
 -- query 4
 DROP TABLE IF EXISTS media_esami;
@@ -93,7 +97,8 @@ WHERE a.adcod IN (
     ORDER BY b.cdscod, b.voto_medio DESC
     LIMIT 3
     )
-order by a.cdscod, a.voto_medio DESC
+order by a.cdscod, a.voto_medio DESC;
+
 
 -- query 5
 DROP TABLE IF EXISTS median;
@@ -105,7 +110,7 @@ ORDER BY c;
 
 DROP TABLE IF EXISTS fast_furious;
 CREATE TEMPORARY TABLE fast_furious AS
-    SELECT stu.CdSCod, stu.CdS, stu.Studente, avg_voto AS avg_voto, median.c AS num_esami,
+    SELECT stu.CdSCod AS cdscod, stu.CdS AS cds, stu.Studente AS Studente, avg_voto AS avg_voto, median.c AS num_esami,
            max(stu.date_norm) AS max, min(stu.date_norm) AS min,
            julianday(max(stu.date_norm)) - julianday(min(date_norm)) AS diff_day
     FROM (
@@ -141,6 +146,7 @@ FROM (
 FROM fast_furious) AS r
 ORDER BY ratio DESC;
 
+
 -- query 6
 SELECT a.adcod, a.AD, a.cds, avg(a.tent) AS tentativi
 FROM (
@@ -149,15 +155,8 @@ FROM (
     GROUP BY Studente, ad, AdCod, CdS) AS a
 GROUP BY a.adcod, a.AD
 ORDER BY tentativi DESC
-LIMIT 3
+LIMIT 3;
 
--- query 7: media voti a seconda della residenza
-select a.CdS, a.StuResArea, avg(a.tent) as tentativi
-from (select CdS, StuResArea, count(*) -1 as tent
-    from bos_denormalizzato
-    group by Studente, StuResArea, CdS, AD) as a
-group by a.CdS, a.StuResArea
-order by tentativi DESC
 
 -- query 7: crediti di merito
 -- view media 27
@@ -213,4 +212,12 @@ FROM (
     SELECT *
     FROM media2728 LEFT JOIN media_2930 ON media2728.CdSCod=media_2930.CdSCod
     WHERE media2728.CdSCod IS NULL) AS res
-ORDER BY cred_merito DESC
+ORDER BY cred_merito DESC;
+
+-- query 7 alternativa: media voti a seconda della residenza
+select a.CdS AS cds, a.StuResArea AS StuResArea, avg(a.tent) as tentativi
+from (select CdS, StuResArea, count(*) -1 as tent
+    from bos_denormalizzato
+    group by Studente, StuResArea, CdS, AD) as a
+group by a.CdS, a.StuResArea
+order by tentativi DESC;

@@ -1,20 +1,4 @@
 -- Query 1
-WITH
-query_norm(cdscod,cds,year,num) AS (
-    SELECT a.cdscod, cds, substr(dtappello, -4) AS year, count(*) AS num
-    FROM appelli AS a JOIN iscrizioni AS i ON a.appcod=i.appcod JOIN cds AS c ON c.cdscod=a.cdscod
-    GROUP BY a.cdscod, year
-),
-query_denorm(cdscod,cds,year,num) AS (
-    SELECT cdscod, cds, substr(dtappello, -2) AS year, count(*) AS num
-    FROM bos_denormalizzato
-    GROUP BY cdscod, year
-)
-
-SELECT query_norm.cds, query_norm.year, query_norm.num, query_denorm.num AS num_denorm
-FROM query_norm JOIN query_denorm ON query_norm.cdscod=query_denorm.cdscod AND
-                                     substr(query_norm.year,-2)=query_denorm.year;
-
 SELECT a.cdscod, cds, substr(dtappello, -4) AS year,DtAppello,
        CASE
            when dtappello like '__/_/%'
@@ -27,14 +11,16 @@ SELECT a.cdscod, cds, substr(dtappello, -4) AS year,DtAppello,
                then date(substr(dtappello,-4)||'-'||substr(dtappello, 4,2)||'-'||substr(dtappello,1,2))
        END data, count(*) AS num
 FROM appelli AS a JOIN iscrizioni AS i ON a.appcod=i.appcod JOIN cds AS c ON c.cdscod=a.cdscod
-GROUP BY a.cdscod, year
+GROUP BY a.cdscod, year;
 
 -- query 2
 DROP TABLE IF EXISTS iscr_sup_ratio_norm;
 CREATE TEMPORARY TABLE iscr_sup_ratio_norm AS
-    SELECT isc.cdscod, cds.cds, isc.year, isc.adcod, ad, num_iscritti, IFNULL(num_sup, 0) AS num_sup,
-           (IFNULL(num_sup,0)*100.0/num_iscritti) AS ratio
-    FROM (((
+    SELECT res.cdscod AS cdscod, res.cds AS cds, res.year AS year, res.adcod AS adcod, ad,
+           num_iscritti, IFNULL(num_sup, 0) AS num_sup, (IFNULL(num_sup,0)*100.0/num_iscritti) AS ratio
+    FROM (
+        select *
+        from (select * from (
         SELECT appelli.adcod, cdscod, substr(appelli.dtappello, -4) AS year, count(*) AS num_iscritti
         FROM appelli JOIN iscrizioni ON appelli.appcod=iscrizioni.appcod
         GROUP BY appelli.adcod, year, cdscod) AS isc
@@ -43,7 +29,7 @@ CREATE TEMPORARY TABLE iscr_sup_ratio_norm AS
         FROM appelli JOIN iscrizioni ON appelli.appcod=iscrizioni.appcod
         WHERE iscrizioni.Superamento = 1
         GROUP BY appelli.adcod, year, cdscod) AS sup ON sup.adcod=isc.adcod AND
-                                                        sup.year=isc.year AND sup.cdscod=isc.cdscod) as esami
+                                                        sup.year=isc.year AND sup.cdscod=isc.cdscod) AS esami
     JOIN ad on esami.adcod=ad.adcod JOIN cds ON esami.cdscod=cds.cdscod) AS res;
 
 SELECT *
@@ -55,10 +41,11 @@ WHERE a.adcod IN (
     ORDER BY b.cdscod, b.year, b.ratio
     LIMIT 10
     )
-ORDER BY a.cdscod, a.year, a.ratio
+ORDER BY a.cdscod, a.year, a.ratio;
 
 
--- query 3SELECT res.CdS, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti AS tasso_commit
+-- query 3
+SELECT res.CdS AS cds, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti AS tasso_commit
 FROM (
     SELECT *
     FROM (
@@ -68,7 +55,7 @@ FROM (
             FROM (cds JOIN appelli ON cds.cdscod=appelli.cdscod) JOIN ad ON appelli.adcod=ad.adcod
             GROUP BY dtappello, cds) AS c
         WHERE count>1
-        GROUP BY c.cds) as commited
+        GROUP BY c.cds) AS commited
         JOIN (
         SELECT c2.cdscod, cds, dtappello, sum(count) AS sum_tutti
         FROM (
@@ -77,16 +64,18 @@ FROM (
             GROUP BY dtappello, cds) AS c2
         GROUP BY c2.cds) AS tutti ON tutti.CdS=commited.CdS) AS res
 ORDER BY tasso_commit DESC
-LIMIT 10
+LIMIT 10;
+
 
 -- query 4
 DROP TABLE IF EXISTS media_voto_norm;
 CREATE TEMPORARY TABLE media_voto_norm AS
-    SELECT a.cdscod, cds, a.adcod, ad, avg(Voto) AS voto
+    SELECT a.cdscod AS cdscod, cds, a.adcod AS adcod, ad, avg(Voto) AS voto
     FROM iscrizioni JOIN appelli a ON iscrizioni.appcod = a.appcod JOIN cds ON a.cdscod = cds.cdscod
         JOIN ad ON a.adcod = ad.adcod
     WHERE Superamento = 1 AND Voto IS NOT NULL
     GROUP BY a.cdscod, CdS, a.adcod, AD;
+
 
 -- migliori 3
 SELECT *
@@ -100,6 +89,7 @@ WHERE a.adcod IN (
     )
 ORDER BY a.cdscod, a.voto DESC;
 
+
 -- peggiori 3
 SELECT *
 FROM media_voto_norm AS a
@@ -112,18 +102,20 @@ WHERE a.adcod IN (
     )
 ORDER BY a.cdscod, a.voto;
 
+
 -- query 5
 DROP TABLE IF EXISTS median;
 CREATE TEMPORARY TABLE median AS
-SELECT CdS, c.cdscod, Studente, count(*) as c
+SELECT CdS, c.cdscod AS cdscod, Studente, count(*) AS count
 FROM iscrizioni JOIN appelli ON iscrizioni.appcod=appelli.appcod JOIN ad ON appelli.adcod=ad.adcod
     JOIN cds c ON appelli.cdscod = c.cdscod GROUP BY Studente, CdS, c.cdscod
-ORDER BY c;
+ORDER BY count;
 
 DROP TABLE IF EXISTS fast_furious_norm;
 CREATE TEMPORARY TABLE fast_furious_norm AS
-    SELECT stu.cdscod, stu.cds, stu.Studente, avg_voto AS avg_voto, median.c AS num_esami, max(stu.date_norm) AS max,
-       min(stu.date_norm) AS min, julianday(max(stu.date_norm)) - julianday(min(stu.date_norm)) AS diff_day
+    SELECT stu.cdscod AS cdscod, stu.cds AS cds, stu.Studente studente, avg_voto AS avg_voto, median.count AS num_esami,
+           max(stu.date_norm) AS max, min(stu.date_norm) AS min,
+           julianday(max(stu.date_norm)) - julianday(min(stu.date_norm)) AS diff_day
     FROM (
         SELECT *,
                CASE
@@ -139,8 +131,8 @@ CREATE TEMPORARY TABLE fast_furious_norm AS
         FROM (
             SELECT *
             FROM median
-            WHERE c>= (
-                SELECT c
+            WHERE count>= (
+                SELECT count
                 FROM (
                     SELECT cast(((min(rowid)+max(rowid))/2) AS INTEGER) AS midrow
                     FROM median) AS t, median
@@ -148,10 +140,10 @@ CREATE TEMPORARY TABLE fast_furious_norm AS
         LEFT JOIN (
             iscrizioni JOIN appelli ON iscrizioni.appcod=appelli.appcod JOIN cds c
                 ON appelli.cdscod = c.cdscod) AS all_stu ON all_stu.CdS = select_stud.CdS AND
-                                                            all_stu.CdSCod=select_stud.CdSCod AND
+                                                            all_stu.CdSCod=select_stud.cdscod AND
                                                             all_stu.Studente=select_stud.Studente) AS stu
     LEFT JOIN (
-        SELECT cds, appelli.cdscod, Studente, avg(Voto) AS avg_voto
+        SELECT cds, appelli.cdscod, studente, avg(Voto) AS avg_voto
         FROM iscrizioni JOIN appelli ON iscrizioni.appcod=appelli.appcod JOIN ad ON appelli.adcod=ad.adcod
             JOIN cds AS c ON appelli.cdscod = c.cdscod
         WHERE Voto IS NOT NULL
@@ -169,18 +161,20 @@ FROM (
 FROM fast_furious_norm) AS r
 ORDER BY ratio DESC;
 
+
 -- query 6
 SELECT a.adcod, a.AD, a.cds, avg(a.tent) AS tentativi
 FROM (
     SELECT ad.AdCod, CdS, ad, count(*) -1 AS tent
     FROM iscrizioni JOIN appelli ON iscrizioni.appcod=appelli.appcod JOIN ad ON appelli.adcod=ad.adcod
         JOIN cds AS c ON appelli.cdscod = c.cdscod
-    GROUP BY Studente, ad, ad.AdCod, CdS) as a
+    GROUP BY Studente, ad, ad.AdCod, CdS) AS a
 GROUP BY a.adcod, a.AD
 ORDER BY tentativi DESC
-LIMIT 3
+LIMIT 3;
 
---query 7
+
+-- query 7
 -- calcolo medie
 DROP TABLE IF EXISTS media_27_norm;
 CREATE TEMPORARY TABLE media_27_norm AS
@@ -189,7 +183,7 @@ CREATE TEMPORARY TABLE media_27_norm AS
         SELECT appelli.CdSCod, cds, avg(Voto) AS voto27
         FROM appelli JOIN cds c ON appelli.cdscod = c.cdscod JOIN iscrizioni i ON appelli.appcod = i.appcod
         GROUP BY Studente, CdS, appelli.CdSCod
-        HAVING voto27 >= 27 and voto27 < 28) as v27
+        HAVING voto27 >= 27 and voto27 < 28) AS v27
     GROUP BY v27.CdS, v27.CdSCod;
 
 DROP TABLE IF EXISTS media_28_norm;
@@ -199,7 +193,7 @@ CREATE TEMPORARY TABLE media_28_norm AS
         SELECT appelli.CdSCod, cds, avg(Voto) AS voto28
         FROM appelli JOIN cds AS c ON appelli.cdscod = c.cdscod JOIN iscrizioni AS i ON appelli.appcod = i.appcod
         GROUP BY Studente, CdS, appelli.CdSCod
-        HAVING voto28 >= 28 and voto28 < 29) as v28
+        HAVING voto28 >= 28 and voto28 < 29) AS v28
     GROUP BY v28.CdS, v28.CdSCod;
 
 DROP TABLE IF EXISTS media_2930_norm;
@@ -209,7 +203,7 @@ CREATE TEMPORARY TABLE media_2930_norm AS
         SELECT appelli.CdSCod, cds, avg(Voto) AS voto2930
         FROM appelli JOIN cds AS c ON appelli.cdscod = c.cdscod JOIN iscrizioni AS i ON appelli.appcod = i.appcod
         GROUP BY Studente, CdS, appelli.CdSCod
-        HAVING voto2930 >= 29) as v2930
+        HAVING voto2930 >= 29) AS v2930
     GROUP BY v2930.CdS, v2930.CdSCod;
 
 -- unione delle medie
@@ -223,7 +217,7 @@ CREATE TEMPORARY TABLE media2728_norm AS
     WHERE media_27_norm.CdSCod IS NULL;
 
 -- query
-SELECT res.CdSCod, res.cds, res.media_v27, res.media_v28, res.media_v2930,
+SELECT res.CdSCod AS cdsCod, res.cds AS cds, res.media_v27 AS media_27, res.media_v28 AS media_28, res.media_v2930 AS media_2930,
        res.media_V27*125+res.media_v28*250+res.media_v2930*500 AS cred_merito
 FROM (
     SELECT *
@@ -232,4 +226,4 @@ FROM (
     SELECT *
     FROM media2728_norm JOIN media_2930_norm ON media2728_norm.CdSCod=media_2930_norm.CdSCod
     WHERE media2728_norm.CdSCod IS NULL ) AS res
-ORDER BY cred_merito desc
+ORDER BY cred_merito desc;
