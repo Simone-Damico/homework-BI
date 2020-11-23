@@ -104,16 +104,9 @@ ORDER BY a.cdscod, a.voto;
 
 
 -- query 5
-DROP TABLE IF EXISTS median;
-CREATE TEMPORARY TABLE median AS
-SELECT CdS, c.cdscod AS cdscod, Studente, count(*) AS count
-FROM iscrizioni JOIN appelli ON iscrizioni.appcod=appelli.appcod JOIN ad ON appelli.adcod=ad.adcod
-    JOIN cds c ON appelli.cdscod = c.cdscod GROUP BY Studente, CdS, c.cdscod
-ORDER BY count;
-
 DROP TABLE IF EXISTS fast_furious_norm;
 CREATE TEMPORARY TABLE fast_furious_norm AS
-    SELECT stu.cdscod AS cdscod, stu.cds AS cds, stu.Studente studente, avg_voto AS avg_voto, median.count AS num_esami,
+    SELECT stu.cdscod AS cdscod, stu.cds AS cds, stu.Studente studente, IFNULL(avg_voto,0) AS avg_voto, median.count AS num_esami,
            max(stu.date_norm) AS max, min(stu.date_norm) AS min,
            julianday(max(stu.date_norm)) - julianday(min(stu.date_norm)) AS diff_day
     FROM (
@@ -154,13 +147,13 @@ CREATE TEMPORARY TABLE fast_furious_norm AS
     GROUP BY stu.Studente, stu.cdscod, stu.cds;
 
 -- query
-SELECT *, studente, 0.5*r.avg_voto_norm+0.5*(1-r.diff_day_norm) AS ratio
+SELECT *, studente, 0.5*r.avg_voto_norm+0.5*((1-r.diff_day_norm)*(num_esami_norm)) AS ratio
 FROM (
     SELECT *, (diff_day/(SELECT max(diff_day) FROM fast_furious_norm)) AS diff_day_norm,
-             (avg_voto/(SELECT max(avg_voto) FROM fast_furious_norm)) AS avg_voto_norm
+             (avg_voto/(SELECT max(avg_voto) FROM fast_furious_norm)) AS avg_voto_norm,
+             (1.0*num_esami/(select max(num_esami) from fast_furious_norm)) AS num_esami_norm
 FROM fast_furious_norm) AS r
 ORDER BY ratio DESC;
-
 
 -- query 6
 SELECT a.adcod, a.AD, a.cds, avg(a.tent) AS tentativi
