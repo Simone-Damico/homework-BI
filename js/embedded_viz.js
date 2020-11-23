@@ -22,7 +22,7 @@ function initQuery2() {
 function but2() {
     console.log(viz)
     viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync(
-        "Corso di studi",  ["[541] SCIENZE DEL TURISMO E COMUNITA' LOCALE(C.SO A DISTANZA)"],
+        "Area",  ["Giuridica"],
     tableau.FilterUpdateType.REPLACE)
 };
 
