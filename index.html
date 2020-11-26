@@ -50,14 +50,11 @@
     <script type="text/javascript" src="src-site/js/app.js"></script>
 
     <style>
-        .body {
-            font-size: 15px;
-        }
         .sql {
             color: #006699 !important;
             font-weight: bold !important;
             background: none !important;
-            font-size: large;
+            font-size: 14px;
         }
         .nokey{
             color: #0f0f0f !important;
@@ -104,6 +101,8 @@
             margin-bottom: 10px;
         }
         .centerCont {
+            margin-bottom: 10px;
+            margin-top: 10px;
             justify-content: center;
             display: flex;
         }
@@ -202,9 +201,7 @@
     </nav>
 </div>
 
-<section class="myHeader">
-    
-</section>
+<section class="myHeader"></section>
 
 <div class="page-content">
     <section id="featured" class="featured content-section">
@@ -247,7 +244,7 @@
             <li>Iscrizione: appello e studente iscritto</li>
             <li>Esito: appello, studente, esito (superato, insufficienza, ritiro, assenza, voto)</li>
         </ul>
-        <div class="centerCont">
+        <div class="centerCont" style="margin-bottom: 10px">
             <img src="src-site/img/modello-dati.png" alt="">
             <div class="text-content">
             </div>
@@ -578,7 +575,7 @@
     <section id="query3-section" class="featured content-section">
         <div class="section-heading">
             <h1>Query 3<br><em>Commitment</em></h1>
-            <p>Individuazione dei corsi di laurea ad elevato <b><i>tasso di commitment</i></b>  , ovvero appelli di esami diversi ma <br>
+            <p>Individuazione dei corsi di laurea ad elevato <b><i>tasso di commitment</i></b>  , ovvero appelli di esami diversi ma
                 del medesimo corso di laurea che si sono svolti nello stesso giorno.</p>
         </div>
         <div>
@@ -679,8 +676,7 @@
     <section id="query4-section" class="featured content-section">
         <div class="section-heading">
             <h1>Query 4<br><em>hardest/easiest exams</em></h1>
-            <p>Individuazione della Top-3 degli esami con media voti maggiore e minore rispettivamente,
-                <br>calcolati per ogni singolo corso di studi.</p>
+            <p>Individuazione della Top-3 degli esami con media voti maggiore e minore rispettivamente, calcolati per ogni singolo corso di studi.</p>
         </div>
         <div>
             Si è calcolata la media dei voti di ogni attività didattica per ogni corso di studio.
@@ -820,13 +816,14 @@
         <div class="section-heading">
             <h1>Query 5<br><em>Fast & Furious</em></h1>
             <p>Calcolare la distribuzione degli studenti fast & furious per corso di studi, ovvero studenti con il rapporto
-                <b><i>votazione media riportata negli esami superati</i></b> su <b><i>periodo di attività</i></b> maggiore. Per periodo di attività si intende il numero di giorni trascorsi tra il primo appello sostenuto (non necessariamente superato) e l'ultimo.</p>
+                <b><i>votazione media riportata negli esami superati</i></b> su <b><i>periodo di attività</i></b> maggiore.</p>
         </div>
 
         <div>
 
             <div>
-                Per ogni studente si è calcolato il numero degli esami sostenuti, questa distribuzione è stata usata per il calcolo della mediana
+                Per periodo di attività si intende il numero di giorni trascorsi tra il primo appello sostenuto (non necessariamente superato) e l'ultimo. Per ogni studente si
+                è calcolato il numero degli esami sostenuti, questa distribuzione è stata usata per il calcolo della mediana
             </div>
 
             <div class="centerCont">
@@ -1100,7 +1097,7 @@
             Si sono calcolati, per ogni corso di studi, il numero di studenti che hanno la media appartenente alle tre fasce.
         </div>
 
-        <div class="centerCont">>
+        <div class="centerCont">
             <table class="sqlContainer">
                 <tr>
                     <td class="line"><b>1</b></td>
