@@ -453,11 +453,12 @@ header {
 .slick-vertical .slick-slide{display:block;height:auto;border:1px solid transparent}
 
 
+
 /* Featured Style */
 
 .featured {
   padding-left: 60px;
-  padding-right: 80px;
+  padding-right: 8px;
   padding-bottom: 80px;
   border-bottom: 1px solid #eee;
 }
