@@ -1,0 +1,42 @@
+.sql {
+    color: #006699 !important;
+    font-weight: bold !important;
+    background: none !important;
+    font-size: 14px;
+}
+
+.nokey{
+    color: #0f0f0f !important;
+    background: none !important;
+}
+
+.operation{
+    color: #f400a1 !important;
+    background: none !important;
+}
+
+.string{
+    color: #e71837 !important;
+    background: none !important;
+}
+
+.comment{
+    color: #999999 !important;
+    background: none !important;
+}
+
+.sqlContainer{
+    background: #DCDCDC;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.line {
+    border-right:  solid 2px #000;
+    text-align: center;
+    padding-right: 10px;
+}
+
+.codeLine{
+    padding-left: 10px;
+}

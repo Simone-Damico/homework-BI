@@ -15,25 +15,18 @@
     -->
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
+    <link href="src-site/css/fontAwesome.css" rel="stylesheet">
+    <link href="src-site/css/light-box.css" rel="stylesheet">
+    <link href="src-site/css/owl-carousel.css" rel="stylesheet">
+    <link href="src-site/css/templatemo-style.css" rel="stylesheet">
+    <link href="src-site/css/sqlTheme.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="src-site/css/fontAwesome.css">
-    <link rel="stylesheet" href="src-site/css/light-box.css">
-    <link rel="stylesheet" href="src-site/css/owl-carousel.css">
-    <link rel="stylesheet" href="src-site/css/templatemo-style.css">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" rel="stylesheet" >
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
-    <link rel="stylesheet"  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css"></link>
-    <link rel="stylesheet"  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css"></link>
-
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
@@ -42,55 +35,18 @@
     <script src="https:///public.tableau.com/javascripts/api/tableau-2.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/7.0.0/rzslider.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/7.0.0/rzslider.min.css" rel="stylesheet">
 
     <script type="text/javascript" src="src-site/js/app.js"></script>
 
     <style>
-        .sql {
-            color: #006699 !important;
-            font-weight: bold !important;
-            background: none !important;
-            font-size: 14px;
-        }
-        .nokey{
-            color: #0f0f0f !important;
-            background: none !important;
-        }
-        .operation{
-            color: #f400a1 !important;
-            background: none !important;
-        }
-        .string{
-            color: #e71837 !important;
-            background: none !important;
-        }
-        .comment{
-            color: #999999 !important;
-            background: none !important;
-        }
-        .sqlContainer{
-            background: #DCDCDC;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
         td, th {
             text-align: left;
             padding: 4px;
         }
         tr:nth-child(even) {
             background-color: #D3D3D3;
-        }
-        .line {
-            border-right:  solid 2px #000;
-            text-align: center;
-            padding-right: 10px;
-        }
-        .codeLine{
-            padding-left: 10px;
         }
         table, th, td {
              border: 1px solid black;
@@ -106,13 +62,6 @@
             justify-content: center;
             display: flex;
         }
-
-        a {
-            text-decoration: none;
-            background-color: transparent;
-        }
-
-
     </style>
 
 
@@ -120,20 +69,12 @@
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="initQuery1();initQuery2();initQuery3();initQuery4();initQuery5();initQuery6();initQuery7()">
 
-
 <div class="sidebar-navigation hidde-sm hidden-xs">
     <div class="logo">
-        <a href="https://www.unimib.it/">Open Stats Bicocca</a>
+        <a href="https://www.unimib.it/">Open Stats<br> Bicocca</a>
     </div>
     <nav>
         <ul>
-            <li>
-                <a href="#top">
-                    <span class="rect"></span>
-                    <span class="circle"></span>
-                    Descrizione
-                </a>
-            </li>
             <li>
                 <a href="#dati">
                     <span class="rect"></span>
