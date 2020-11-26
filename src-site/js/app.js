@@ -691,74 +691,95 @@ var app = angular.module('myApp', [])
 
         $scope.searchCri = "dip"
 
-        var a;
+        let viz1;
         $scope.initQuery1 = function() {
-            var containerDiv = document.getElementById("containerQuery1"),
+            let containerDiv = document.getElementById("containerQuery1"),
                 url = "https://public.tableau.com/views/homework-BI/Query1_1";
-            a  = new tableau.Viz(containerDiv, url);
+            viz1  = new tableau.Viz(containerDiv, url);
+        };
+
+        let viz2;
+        $scope.initQuery2 = function() {
+            let containerDiv = document.getElementById("containerQuery2"),
+                url = "https://public.tableau.com/views/homework-BI/Dashboard2";
+            viz2 = new tableau.Viz(containerDiv, url);
+        };
+
+        let viz3
+        $scope.initQuery3 = function() {
+            let containerDiv = document.getElementById("containerQuery3"),
+                url = "https://public.tableau.com/views/homework-BI/Dashboard3";
+            viz3 = new tableau.Viz(containerDiv, url);
+        };
+
+        let viz4
+        $scope.initQuery4 = function() {
+            let containerDiv = document.getElementById("containerQuery4"),
+                url = "https://public.tableau.com/views/homework-BI/Sheet6";
+            viz4 = new tableau.Viz(containerDiv, url);
+        };
+
+        let var5
+        $scope.initQuery5 = function() {
+            let containerDiv = document.getElementById("containerQuery5"),
+                url = "https://public.tableau.com/views/homework-BI/Sheet7";
+            var5 = new tableau.Viz(containerDiv, url);
+        };
+
+        let var6
+        $scope.initQuery6= function() {
+            let containerDiv = document.getElementById("containerQuery6"),
+                url = "https://public.tableau.com/views/homework-BI/Sheet9";
+            var6 = new tableau.Viz(containerDiv, url);
+        };
+
+        let var7
+        $scope.initQuery7 = function() {
+            let containerDiv = document.getElementById("containerQuery7"),
+                url = "https://public.tableau.com/views/homework-BI/Sheet10";
+            var7 = new tableau.Viz(containerDiv, url);
+        };
+
+        $scope.chooseCds = function() {
+            console.log($scope.selCds.length);
+            console.log($scope.cds.length)
+            console.log(viz1.getWorkbook())
+
+            $scope.setFilterViz(viz1, "CDS", $scope.selCds, 'replace')
+            $scope.setFilterViz(viz2, "Corso di studi", $scope.selCds, 'replace')
+            $scope.setFilterViz(viz3, "Cds", $scope.selCds, 'replace')
+            $scope.setParameterViz(viz3,'Limit', Math.min(10, $scope.selCds.length))
+            $scope.setFilterViz(viz4, "Cds", $scope.selCds, 'replace')
+
+            console.log("gggggg")
         };
 
         $scope.addValuesToFilter = function() {
             console.log(a)
-            a.getWorkbook().getActiveSheet().applyFilterAsync("CDS",
+            a.getWorkbook().getActiveSheet().applyFilterAsync("Corso Di Studi",
                 ["[541] SCIENZE DEL TURISMO E COMUNITA' LOCALE(C.SO A DISTANZA)"],
                 tableau.FilterUpdateType.REPLACE)
         }
-        var viz;
-        $scope.initQuery2 = function() {
-            var containerDiv = document.getElementById("containerQuery2"),
-                url = "https://public.tableau.com/views/homework-BI/Dashboard2";
-            viz = new tableau.Viz(containerDiv, url);
-        };
 
-        $scope.but2 = function() {
-            console.log($scope.selCds.length);
-            console.log($scope.cds.length)
-            console.log($scope.area_dip[1])
-            /*a.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync(
-                "CDS",  $scope.selCds,
-                tableau.FilterUpdateType.REPLACE)*/
-        };
+        $scope.setFilterViz = function (viz, filter, values, type) {
+            try {
+                // la viz è un sheet
+                if (type === 'replace') {
+                    console.log("quiiiii")
+                    viz.getWorkbook().getActiveSheet().applyFilterAsync(filter, values, tableau.FilterUpdateType.REPLACE)
+                }
+            } catch (e) {
+                // la viz è una dashbord
+                print(e)
+                if (type === 'replace') {
+                    viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync(
+                        filter, values, tableau.FilterUpdateType.REPLACE)
+                }
+            }
+        }
 
-        $scope.initQuery3 = function() {
-            var containerDiv = document.getElementById("containerQuery3"),
-                url = "https://public.tableau.com/views/homework-BI/Dashboard3";
-            query3 = new tableau.Viz(containerDiv, url);
-        };
-
-        var query4
-        $scope.initQuery4 = function() {
-            var containerDiv = document.getElementById("containerQuery4"),
-                url = "https://public.tableau.com/views/homework-BI/Sheet6";
-            query4 = new tableau.Viz(containerDiv, url);
-        };
-
-        $scope.but3 = function() {
-            console.log(viz)
-            query4.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync(
-                "Corso di studi",  ["[541] SCIENZE DEL TURISMO E COMUNITA' LOCALE(C.SO A DISTANZA)"],
-                tableau.FilterUpdateType.REPLACE)
-        };
-
-        var query5
-        $scope.initQuery5 = function() {
-            var containerDiv = document.getElementById("containerQuery5"),
-                url = "https://public.tableau.com/views/homework-BI/Sheet7";
-            query5 = new tableau.Viz(containerDiv, url);
-        };
-
-        var query6
-        $scope.initQuery6= function() {
-            var containerDiv = document.getElementById("containerQuery6"),
-                url = "https://public.tableau.com/views/homework-BI/Sheet9";
-            query6 = new tableau.Viz(containerDiv, url);
-        };
-
-        var query7
-        $scope.initQuery7 = function() {
-            var containerDiv = document.getElementById("containerQuery7"),
-                url = "https://public.tableau.com/views/homework-BI/Sheet10";
-            query7 = new tableau.Viz(containerDiv, url);
-        };
+        $scope.setParameterViz = function (viz, param, value) {
+            viz.getWorkbook().changeParameterValueAsync(param, value)
+        }
 
     });
