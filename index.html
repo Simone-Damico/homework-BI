@@ -95,15 +95,24 @@
         .codeLine{
             padding-left: 10px;
         }
-        .slidecontainer {
-            width: 100%; /* Width of the outside container */
-        }
         table, th, td {
              border: 1px solid black;
          }
-        table {
-            width: 100%;
+        .tableTime {
+            width: 80%;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
+        .centerCont {
+            justify-content: center;
+            display: flex;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: transparent;
+        }
+
 
     </style>
 
@@ -112,29 +121,6 @@
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="initQuery1();initQuery2();initQuery3();initQuery4();initQuery5();initQuery6();initQuery7()">
 
-
-
-<header class="nav-down responsive-nav hidden-lg hidden-md">
-    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-    <!--/.navbar-header-->
-    <div id="main-nav" class="collapse navbar-collapse">
-        <nav>
-            <ul class="nav navbar-nav">
-                <li><a href="#top">Home</a></li>
-                <li><a href="#featured">Featured</a></li>
-                <li><a href="#projects">Recent Projects</a></li>
-                <li><a href="#video">Presentation</a></li>
-                <li><a href="#blog">Blog Entries</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
 
 <div class="sidebar-navigation hidde-sm hidden-xs">
     <div class="logo">
@@ -206,83 +192,26 @@
                 </a>
             </li>
             <li>
-                <a href="#contact">
+                <a href="#team">
                     <span class="rect"></span>
                     <span class="circle"></span>
-                    Contact Us
+                    Team
                 </a>
             </li>
         </ul>
     </nav>
 </div>
 
-<div class="slider">
-    <div class="Modern-Slider content-section" id="top">
-        <!-- Item -->
-        <div class="item item-1">
-            <div class="img-fill">
-                <div class="image"></div>
-                <div class="info">
-                    <div>
-                        <h1>Beautiful Template<br>Sentra</h1>
-                        <p>Sentra is free Bootstrap CSS Template by templatemo website.<br>
-                            Please share our site link to your friends.</p>
-                        <div class="white-button button">
-                            <a href="#featured">Discover More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- // Item -->
-        <!-- Item -->
-        <div class="item item-2">
-            <div class="img-fill">
-                <div class="image"></div>
-                <div class="info">
-                    <div>
-                        <h1>Please tell <br>your friends</h1>
-                        <p>Support templatemo by sharing a link to your friends.
-                            <br>Thank you for helping us.</p>
-
-                        <div class="white-button button">
-                            <a href="#featured">Share More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- // Item -->
-        <!-- Item -->
-        <div class="item item-3">
-            <div class="img-fill">
-                <div class="image"></div>
-                <div class="info">
-                    <div>
-                        <h1>Suspendisse suscipit<br>nulla sed</h1>
-                        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices <br>posuere cubilia Curae; Sed at massa turpis.</p>
-
-                        <div class="white-button button">
-                            <a href="#featured">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- // Item -->
-    </div>
-</div>
-
+<section class="myHeader">
+    
+</section>
 
 <div class="page-content">
     <section id="featured" class="featured content-section">
         <div class="section-heading">
-            <h1>Featured<br><em>Places</em></h1>
-            <p>Praesent pellentesque efficitur magna,
-                <br>sed pellentesque neque malesuada vitae.</p>
+            <h1 style="font-size: 40px;">Bicocca<br><em>Open Stats</em></h1>
+            <p style="font-size: 20px;">Portale per il monitoraggio della didattica</p>
         </div>
-        <h1>Bicocca Open Stats</h1>
-        <h3>Homework Business Intelligent</h3>
 
         Homework per il corso di Business Intelligence. Si richiede di:
         <ul>
@@ -318,57 +247,61 @@
             <li>Iscrizione: appello e studente iscritto</li>
             <li>Esito: appello, studente, esito (superato, insufficienza, ritiro, assenza, voto)</li>
         </ul>
-        <div>
+        <div class="centerCont">
             <img src="src-site/img/modello-dati.png" alt="">
             <div class="text-content">
             </div>
         </div>
         Oltre al modello relazionale descritto è fornito anche una tabella denormalizzata che contiene tutti i dati, in cui ogni riga rappresenta un'iscrizione ad un appello.
-        Le interrogazioni sono state eseguite su entrambi i modelli e si sono confrontati sulla base del tempo di esecuzione.<br>METTERE TABELLA TEMPO<br>
+        Si sono confrontati entrambi i modelli considerando la complessità di esecuzione delle interrogazioni e il tempo di calcolo. La complessità non ha rappresentato un ostacolo
+        pere il modello normalizzato, si sono individuati con facilità i dati necessari per rispondere alle interrogazioni. La differenza più significatica è stato il tempo impiegato
+        per l'esecuzione, maggiore nel caso del modello denormalizzato sopratturro per le query che richiedevano più join. Nella tabella seguente sono riportati i tempi di esecuzione
+        delle query per i modelli.
 
-
-        <table>
+        <div class="centerCont">
+            <table class="tableTime">
             <tr>
                 <th>Query</th>
                 <th>Denormalizzata (s)</th>
                 <th>Normalizzata (s)</th>
             </tr>
             <tr>
-                <td>1</td>
+                <td>Query 1 - Who is playing?</td>
                 <td>0.827</td>
                 <td>0.294</td>
             </tr>
             <tr>
-                <td>2</td>
+                <td>Query 2 - I’ll never graduate</td>
                 <td>4.945</td>
                 <td>2.993</td>
             </tr>
             <tr>
-                <td>3</td>
+                <td>Query 3 - Commitment</td>
                 <td>1.412</td>
                 <td>0.156</td>
             </tr>
             <tr>
-                <td>4</td>
+                <td>Query 4 - hardest/easiest exams</td>
                 <td>4.642</td>
                 <td>9.232</td>
             </tr>
             <tr>
-                <td>5</td>
+                <td>Query 5 - Fast & Furious</td>
                 <td>613.587 (&#126; 10 min)</td>
                 <td>4.978</td>
             </tr>
             <tr>
-                <td>6</td>
+                <td>Query 6 - Trial & Error</td>
                 <td>1.165</td>
                 <td>1.070</td>
             </tr>
             <tr>
-                <td>7</td>
+                <td>Query 7 - DARE NOME</td>
                 <td>1.524</td>
                 <td>1.356</td>
             </tr>
         </table>
+        </div>
 
 
         Si è seguita la stessa startegia per ogni query, indipendentemente dal modello usato: si sono dapprima create delle tabelle temporanee con i dati di interesse per
@@ -376,12 +309,6 @@
 
     </section>
     <section id="d" class="featured content-section">
-        <div class="section-heading">
-            <h1>Recent<br><em>Projects</em></h1>
-            <p>Praesent pellentesque efficitur magna,
-                <br>sed pellentesque neque malesuada vitae.</p>
-        </div>
-        <h3>Query</h3>
         <form class="aa">
             <div class="form-group">
                 <label for="forSelCds">Seleziona i corsi di studi da esaminare</label>
@@ -437,8 +364,7 @@
 
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" ng-click="chooseCds()">Submit</button>
-
+            <button type="submit" class="btn btn-primary" ng-click="chooseCds()">Esamina</button>
         </form>
 
     </section>
@@ -458,11 +384,11 @@
         </div>
 
         <div>
-            <div>
+            <div class="centerCont">
                 <table class="sqlContainer">
                     <tr>
                         <td class="line"><b>1</b></td>
-                        <td class="codeLine"><code class="sql">CREATE TABLE <code class="nokey">cdscod, cds,</code> <code class="string">'20'</code><code class="nokey">||</code> <code class="operation">substr</code><code class="nokey">(dtappello, -2)</code> AS <code class="nokey">year, <code class="operation">count</code>(*)</code> AS <code class="nokey">num</code></code></td>
+                        <td class="codeLine"><code class="sql">CREATE TABLE <code class="nokey">cdscod, cds,</code> <code class="string">'20'</code><code class="nokey">||</code><code class="operation">substr</code><code class="nokey">(dtappello, -2)</code> AS <code class="nokey">year, <code class="operation">count</code>(*)</code> AS <code class="nokey">num</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>2</b></td>
@@ -474,7 +400,7 @@
                     </tr>
                     <tr>
                         <td class="line"><b>4</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; THEN <code class="operation">date</code><code class="nokey">(</code><code class="string">'20'</code><code class="nokey">||</code><code class="operation">substr</code><code class="nokey">(dtappello, -2)</code><code class="nokey">||</code><code class="string">'-'</code><code class="nokey">||</code><code class="operation"> substr</code><code class="nokey">(dtappello, 4, 2)</code><code class="nokey">||</code><code class="string">'-'</code><code class="nokey">||</code><code class="operation"> substr</code><code class="nokey">(dtappello, 1, 2))</code></code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; THEN <code class="operation">date</code><code class="nokey">(</code><code class="string">'20'</code><code class="nokey">||</code><code class="operation">substr</code><code class="nokey">(dtappello, -2)</code><code class="nokey">||</code><code class="string">'-'</code><code class="nokey">||</code><code class="operation"> substr</code><code class="nokey">(dtappello, 4, 2)</code><code class="nokey">||</code><code class="string">'-'</code><code class="nokey">||</code><code class="operation">substr</code><code class="nokey">(dtappello, 1, 2))</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>5</b></td>
@@ -506,17 +432,19 @@
     <section id="query2-section" class="featured content-section">
         <div class="section-heading">
             <h1>Query 2<br><em>I’ll never graduate</em></h1>
-            <p>Individuazione della Top-10 degli esami più difficili suddivisi per corso di studi.<br>
-                Per esame più difficile si intende l'esame che presenta il tasso di superamento complessivo minore, considerando tutti gli appelli dell’Anno Accademico.
-                Tasso di superamento è inteso come il <b><i>numero di studenti che hanno superato l’appello</i></b> su <b><i>numero di studenti che
-                    hanno partecipato all'appello</i></b>.</p>
+            <p>Individuazione della Top-10 degli esami più difficili suddivisi per corso di studi.</p>
+        </div>
+        <div>
+            Per esame più difficile si intende l'esame che presenta il tasso di superamento complessivo minore, considerando tutti gli appelli dell’Anno Accademico.
+            Tasso di superamento è inteso come il <b><i>numero di studenti che hanno superato l’appello</i></b> su <b><i>numero di studenti che
+            hanno partecipato all'appello</i></b>.
         </div>
         <div>
             Per prima cosa si è calcolato il tasso di superamento per ogni attività didattica eper ogni anno accademico presente considerando sia tutti gli studenti iscritti e
             sia solo quelli che hanno passati la specifica attività didattica.
         </div>
 
-        <div>
+        <div class="centerCont">
             <table class="sqlContainer">
                 <tr>
                     <td class="line"><b>1</b></td>
@@ -595,7 +523,7 @@
             Successivamente si sono selezionate le prime dieci attività con indice più alto per ogni anno.
         </div>
 
-        <div>
+        <div class="centerCont">
             <table class="sqlContainer">
                 <tr>
                     <td class="line"><b>1</b></td>
@@ -660,7 +588,7 @@
                 degli appelli nello stesso giorno per ogni mese, inoltre il numero dei primi corsi per tasso di commitment è modificabile.
             </div>
 
-            <div>
+            <div class="centerCont">
                 <table class="sqlContainer">
                     <tr>
                         <td class="line"><b>1</b></td>
@@ -758,7 +686,7 @@
             Si è calcolata la media dei voti di ogni attività didattica per ogni corso di studio.
         </div>
 
-        <div>
+        <div class="centerCont">
             <table class="sqlContainer">
                 <tr>
                     <td class="line"><b>1</b></td>
@@ -792,7 +720,7 @@
             almeno sei corsi per i quali, quindi ha senso fare un confronto tra i primi tre e gli ultimi tre.
         </div>
 
-        <div>
+        <div class="centerCont">
             <table class="sqlContainer">
                 <tr>
                     <td class="line"><b>1</b></td>
@@ -901,7 +829,7 @@
                 Per ogni studente si è calcolato il numero degli esami sostenuti, questa distribuzione è stata usata per il calcolo della mediana
             </div>
 
-            <div>
+            <div class="centerCont">
                 <table class="sqlContainer">
                     <tr>
                         <td class="line"><b>1</b></td>
@@ -935,7 +863,7 @@
                 Per ognuno di loro si calcola la media sugli esami sostenuti e la differenza in giorni tra il primo esame e l'ultimo.
             </div>
 
-            <div>
+            <div class="centerCont">
                 <table class="sqlContainer">
                     <tr>
                         <td class="line"><b>1</b></td>
@@ -1052,7 +980,7 @@
                 numero di esami lo studente sarà meno <em>Fast</em>, mentre se diminuisce la media sarà meno <em>Furious</em>
             </div>
 
-            <div>
+            <div class="centerCont">
                 <table class="sqlContainer">
                     <tr>
                         <td class="line"><b>1</b></td>
@@ -1086,12 +1014,12 @@
                 </table>
             </div>
 
-            <div>
-                <form id="pesi" action="#" method="post">
-                    <label>
-                        <input ng-model="slider.value" type="number" step="0.01"/>
-                    </label>
-                    <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider> {{slider}}
+            <div style="margin-top: 10px;">
+                <div style="float:left; display:block;">Scegli quanto far pesare la media del voto, rispetto al periodo di attività, nel calcolo dell'indice <em>Fast & Furious</em>
+                    per gli studenti: &nbsp;</div><input ng-model="slider.value" ng-change="setPesiViz5(slider.value/100)" type="number" min="0" max="100" step="1" style="width: 60px; float:left; display:block;"/> &nbsp;% o
+                usa l'apposita barra
+                <form id="pesi" action="#" method="post" style="margin-top: 50px;  width: 90%;">
+                    <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
                 </form>
 
                 <div id= "query5">
@@ -1107,16 +1035,15 @@
     <section id="query6-section" class="featured content-section">
         <div class="section-heading">
             <h1>Query 6<br><em>Trial & Error</em></h1>
-            <p>Individuazione della Top-3 degli esami <b><i>trial & error</i></b>, ovvero esami che richiedono il maggior numero di tentativi prima del superamento.
-                Dato uno corso di studi, il rispettivo valore trial & error è dato dalla media del numero di tentativi (bocciature) di ogni studente per ogni appello del corso.</p>
+            <p>Individuazione della Top-3 degli esami <b><i>trial & error</i></b>, ovvero esami che richiedono il maggior numero di tentativi prima del superamento.</p>
         </div>
 
         <div>
-            DA RIVEDERE?? se faccio count - 1 e ho studeenti che non hanno mai passato il corso allora considero meno tentativi
+            Dato uno corso di studi, il rispettivo valore <b><i>trial & error</i></b> è dato dalla media del numero di tentativi (bocciature) di ogni studente per ogni appello del corso.
+            Si contano, per ogni studente, il numero di esami non passati per ogni attività didattica e poi si aggregano i tentativi per ogni attività didattica.
         </div>
         <div>
-
-            <div>
+            <div class="centerCont">
                 <table class="sqlContainer">
                     <tr>
                         <td class="line"><b>1</b></td>
@@ -1128,11 +1055,15 @@
                     </tr>
                     <tr>
                         <td class="line"><b>3</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; SELECT <code class="nokey">AdCod, CdS, ad,</code> count<code class="nokey">(*)-1</code> AS <code class="nokey">tent</code></code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; SELECT <code class="nokey">AdCod, CdS, ad,</code> count<code class="nokey">(*)</code> AS <code class="nokey">tent</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>4</b></td>
                         <td class="codeLine"><code class="sql">&nbsp;&nbsp; FROM <code class="nokey">bos_denormalizzato</code></code></td>
+                    </tr>
+                    <tr>
+                        <td class="line"><b>4</b></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; WHERE <code class="nokey">Superamento = 0</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>5</b></td>
@@ -1169,7 +1100,7 @@
             Si sono calcolati, per ogni corso di studi, il numero di studenti che hanno la media appartenente alle tre fasce.
         </div>
 
-        <div>
+        <div class="centerCont">>
             <table class="sqlContainer">
                 <tr>
                     <td class="line"><b>1</b></td>
@@ -1307,7 +1238,7 @@
             l'ammontare dei crediti di merito.
         </div>
 
-        <div>
+        <div class="centerCont">
             <table class="sqlContainer">
                 <tr>
                     <td class="line"><b>1</b></td>
@@ -1403,89 +1334,23 @@
         </div>
     </section>
 
-
-    <section id="video" class="content-section">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="section-heading">
-                    <h1>This is a <em>company</em> presentation.</h1>
-                    <p>Praesent pellentesque efficitur magna, sed pellentesque neque malesuada vitae.</p>
-                </div>
-                <div class="text-content">
-                    <p>In eget ipsum sed lorem vehicula luctus. Curabitur non dolor rhoncus, hendrerit justo sit amet, vestibulum turpis. Pellentesque id auctor tellus, vel ultricies augue. Duis condimentum aliquet blandit. Fusce rhoncus et eros ut pharetra. Phasellus convallis ultricies ligula ac gravida.</p>
-                </div>
-                <div class="accent-button button">
-                    <a href="#blog">Continue Reading</a>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="box-video">
-                    <div class="bg-video" style="background-image: url(https://unsplash.imgix.net/photo-1425036458755-dc303a604201?fit=crop&fm=jpg&q=75&w=1000);">
-                        <div class="bt-play">Play</div>
-                    </div>
-                    <div class="video-container">
-                        <iframe width="100%" height="520" src="https://www.youtube.com/embed/j-_7Ub-Zkow?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
-                    </div>
-                </div>
-            </div>
+    <section id="team" class="featured content-section">
+        <div class="section-heading">
+            <h1>Team</h1>
         </div>
-    </section>
-
-    <section id="contact" class="content-section">
-        <div id="map">
-
-            <!-- How to change your own map point
-                   1. Go to Google Maps
-                   2. Click on your location point
-                   3. Click "Share" and choose "Embed map" tab
-                   4. Copy only URL and paste it within the src="" field below
-            -->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1197183.8373802372!2d-1.9415093691103689!3d6.781986417238027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb96f349e85efd%3A0xb8d1e0b88af1f0f5!2sKumasi+Central+Market!5e0!3m2!1sen!2sth!4v1532967884907" width="100%" height="400px" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-        <div id="contact-content">
-            <div class="section-heading">
-                <h1>Contact<br><em>Sentra</em></h1>
-                <p>Curabitur hendrerit mauris mollis ipsum vulputate rutrum.
-                    <br>Phasellus luctus odio eget dui imperdiet.</p>
-
-            </div>
-            <div class="section-content">
-                <form id="contact" action="#" method="post">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <fieldset>
-                                <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
-                            </fieldset>
-                        </div>
-                        <div class="col-md-4">
-                            <fieldset>
-                                <input name="email" type="email" class="form-control" id="email" placeholder="Your email..." required="">
-                            </fieldset>
-                        </div>
-                        <div class="col-md-4">
-                            <fieldset>
-                                <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject..." required="">
-                            </fieldset>
-                        </div>
-                        <div class="col-md-12">
-                            <fieldset>
-                                <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
-                            </fieldset>
-                        </div>
-                        <div class="col-md-12">
-                            <fieldset>
-                                <button type="submit" id="form-submit" class="btn">Send Message Now</button>
-                            </fieldset>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        <div>
+            <ul class="par">
+                <li>Davide Porcellini - MATRICOLA<br>
+                    Corso di laurea magistrale in Data Science<br>
+                    Università degli studi di Milano Bicocca - Dipartimento di Informatica, Sistemistica e Comunicazione DISCo</li>
+                <li>Simone D’amico - 850369<br>
+                    Corso di laurea magistrale in Data Science<br>
+                    Università degli studi di Milano Bicocca - Dipartimento di Informatica, Sistemistica e Comunicazione DISCo</li>
+            </ul>
         </div>
     </section>
     <section class="footer">
-        <p>Copyright &copy; 2019 Company Name
-
-            . Design: TemplateMo</p>
+        <p>Homework Business Intelligence 2020 Site Template: <a href="https://templatemo.com/">TemplateMo</a></p>
     </section>
 </div>
 

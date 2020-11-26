@@ -679,23 +679,28 @@ var app = angular.module('myApp',  ['rzSlider'])
     })
     .controller('myCtrl', function($scope, DATA) {
 
-
-
-        $scope.minSlider=0
-        $scope.maxSlider=100
-        $scope.valSlider = 50
-
         $scope.cds = DATA.cds
         $scope.area_dip = DATA.area_dip
 
         $scope.selCds = [];
-        $scope.states = ['AL', 'AK', 'AZ', 'AR', 'CA'];
-        console.log($scope.states)
-        $scope.sel = function () {
-            console.log("dd", $scope.selCds);
-        }
 
-        $scope.searchCri = "dip"
+        $scope.slider = {
+            value: 50,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 1,
+                precision: 1,
+                translate: function(value) {
+                    return 'peso voto: ' + value +"% - " + (100-value) + "% :peso giorni "
+                },
+                onChange: function(value) {
+                    $scope.setPesiViz5(value/100)
+                },
+            }
+        };
+
+        $scope.pesoViz5 = $scope.slider.value;
 
         let viz1;
         $scope.initQuery1 = function() {
@@ -733,18 +738,18 @@ var app = angular.module('myApp',  ['rzSlider'])
             viz5 = new tableau.Viz(containerDiv, url);
         };
 
-        let var6
+        let viz6
         $scope.initQuery6= function() {
             let containerDiv = document.getElementById("containerQuery6"),
                 url = "https://public.tableau.com/views/homework-BI/Sheet9";
-            var6 = new tableau.Viz(containerDiv, url);
+            viz6 = new tableau.Viz(containerDiv, url);
         };
 
-        let var7
+        let viz7
         $scope.initQuery7 = function() {
             let containerDiv = document.getElementById("containerQuery7"),
                 url = "https://public.tableau.com/views/homework-BI/Sheet10";
-            var7 = new tableau.Viz(containerDiv, url);
+            viz7 = new tableau.Viz(containerDiv, url);
         };
 
         $scope.chooseCds = function() {
@@ -757,6 +762,9 @@ var app = angular.module('myApp',  ['rzSlider'])
             $scope.setFilterViz(viz3, "Cds", $scope.selCds, 'replace')
             $scope.setParameterViz(viz3,'Limit', Math.min(10, $scope.selCds.length))
             $scope.setFilterViz(viz4, "Cds", $scope.selCds, 'replace')
+            $scope.setFilterViz(viz5, "Cds", $scope.selCds, 'replace')
+            $scope.setFilterViz(viz6, "Cds", $scope.selCds, 'replace')
+            $scope.setFilterViz(viz7, "Cds", $scope.selCds, 'replace')
 
             console.log("gggggg")
         };
@@ -794,31 +802,5 @@ var app = angular.module('myApp',  ['rzSlider'])
             viz5.getWorkbook().changeParameterValueAsync('peso voto', String(value).replace(".", ","))
             viz5.getWorkbook().changeParameterValueAsync('peso giorni', String(1-value).replace(".", ","))
         }
-
-
-        $scope.slider = {
-            value: 0.5,
-            options: {
-                floor: 0,
-                ceil: 1,
-                step: 0.01,
-                precision: 3,
-                translate: function(value) {
-                    return 'peso voto: ' + Math.round(((1-value)) * 100) / 100 +" - " + value + " :peso giorni "
-                },
-                id: 'slider-id',
-                onStart: function(id, value) {
-                    console.log('on start ' + id + value); // logs 'on start slider-id'
-                },
-                onChange: function(id, value, viz5) {
-                    console.log('on change ' + id+ value); // logs 'on change slider-id'
-                    console.log('on change ' + viz5); // logs 'on change slider-id'
-                    $scope.setPesiViz5(value)
-                },
-                onEnd: function(id, value) {
-                    console.log('on end ' + id + value); // logs 'on end slider-id'
-                }
-            }
-        };
 
     });
