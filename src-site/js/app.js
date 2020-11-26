@@ -679,6 +679,23 @@ var app = angular.module('myApp', [])
     })
     .controller('myCtrl', function($scope, DATA) {
 
+        // Instantiate a slider
+        var mySlider = new Slider("input.slider", {
+            // initial options object
+        });
+
+// Call a method on the slider
+        var value = mySlider.getValue();
+
+// For non-getter methods, you can chain together commands
+        mySlider
+            .setValue(5)
+            .setValue(7);
+
+        $scope.minSlider=0
+        $scope.maxSlider=100
+        $scope.valSlider = 50
+
         $scope.cds = DATA.cds
         $scope.area_dip = DATA.area_dip
 
