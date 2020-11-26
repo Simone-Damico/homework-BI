@@ -1,4 +1,4 @@
-var app = angular.module('myApp', [])
+var app = angular.module('myApp',  ['rzSlider'])
     .service('DATA', function(){
         this.area_dip = [
             ['Economico statistica', 'DIPARTIMENTO DI ECONOMIA, METODI QUANTITATIVI E STRATEGIE DI IMPRESA'],
@@ -679,18 +679,7 @@ var app = angular.module('myApp', [])
     })
     .controller('myCtrl', function($scope, DATA) {
 
-        // Instantiate a slider
-        var mySlider = new Slider("input.slider", {
-            // initial options object
-        });
 
-// Call a method on the slider
-        var value = mySlider.getValue();
-
-// For non-getter methods, you can chain together commands
-        mySlider
-            .setValue(5)
-            .setValue(7);
 
         $scope.minSlider=0
         $scope.maxSlider=100
@@ -737,11 +726,11 @@ var app = angular.module('myApp', [])
             viz4 = new tableau.Viz(containerDiv, url);
         };
 
-        let var5
+        let viz5
         $scope.initQuery5 = function() {
             let containerDiv = document.getElementById("containerQuery5"),
                 url = "https://public.tableau.com/views/homework-BI/Sheet7";
-            var5 = new tableau.Viz(containerDiv, url);
+            viz5 = new tableau.Viz(containerDiv, url);
         };
 
         let var6
@@ -799,5 +788,37 @@ var app = angular.module('myApp', [])
         $scope.setParameterViz = function (viz, param, value) {
             viz.getWorkbook().changeParameterValueAsync(param, value)
         }
+
+        $scope.setPesiViz5 = function(value) {
+            console.log("da fun", value)
+            viz5.getWorkbook().changeParameterValueAsync('peso voto', String(value).replace(".", ","))
+            viz5.getWorkbook().changeParameterValueAsync('peso giorni', String(1-value).replace(".", ","))
+        }
+
+
+        $scope.slider = {
+            value: 0.5,
+            options: {
+                floor: 0,
+                ceil: 1,
+                step: 0.01,
+                precision: 3,
+                translate: function(value) {
+                    return 'peso voto: ' + Math.round(((1-value)) * 100) / 100 +" - " + value + " :peso giorni "
+                },
+                id: 'slider-id',
+                onStart: function(id, value) {
+                    console.log('on start ' + id + value); // logs 'on start slider-id'
+                },
+                onChange: function(id, value, viz5) {
+                    console.log('on change ' + id+ value); // logs 'on change slider-id'
+                    console.log('on change ' + viz5); // logs 'on change slider-id'
+                    $scope.setPesiViz5(value)
+                },
+                onEnd: function(id, value) {
+                    console.log('on end ' + id + value); // logs 'on end slider-id'
+                }
+            }
+        };
 
     });

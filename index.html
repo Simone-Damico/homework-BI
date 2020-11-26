@@ -29,10 +29,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+    <link rel="stylesheet"  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css"></link>
+    <link rel="stylesheet"  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css"></link>
+
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
@@ -42,6 +43,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/7.0.0/rzslider.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/7.0.0/rzslider.min.css" rel="stylesheet">
 
     <script type="text/javascript" src="src-site/js/app.js"></script>
 
@@ -93,6 +97,12 @@
         }
         .slidecontainer {
             width: 100%; /* Width of the outside container */
+        }
+        table, th, td {
+             border: 1px solid black;
+         }
+        table {
+            width: 100%;
         }
 
     </style>
@@ -299,10 +309,6 @@
             <h1><em>Dati</em></h1>
         </div>
 
-        <div class="slidecontainer">
-            <input type="range" ng-model="{{valSlider}}" min="{{min}}" max="{{maxSlider}}" value="{{valSlider}}" class="slider" id="myRange">
-        </div>
-
         I dati forniti descrivono una parte dello scenario universitario dell'università di Milano Bicocca, in particolare modellano il concetto di studente, corso di studi,
         esami e le relazioni tra di essi:
         <ul>
@@ -312,7 +318,6 @@
             <li>Iscrizione: appello e studente iscritto</li>
             <li>Esito: appello, studente, esito (superato, insufficienza, ritiro, assenza, voto)</li>
         </ul>
-        <input type="range" min="1" max="100" value="50">
         <div>
             <img src="src-site/img/modello-dati.png" alt="">
             <div class="text-content">
@@ -320,6 +325,51 @@
         </div>
         Oltre al modello relazionale descritto è fornito anche una tabella denormalizzata che contiene tutti i dati, in cui ogni riga rappresenta un'iscrizione ad un appello.
         Le interrogazioni sono state eseguite su entrambi i modelli e si sono confrontati sulla base del tempo di esecuzione.<br>METTERE TABELLA TEMPO<br>
+
+
+        <table>
+            <tr>
+                <th>Query</th>
+                <th>Denormalizzata (s)</th>
+                <th>Normalizzata (s)</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0.827</td>
+                <td>0.294</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>4.945</td>
+                <td>2.993</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>1.412</td>
+                <td>0.156</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>4.642</td>
+                <td>9.232</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>613.587 (&#126; 10 min)</td>
+                <td>4.978</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>1.165</td>
+                <td>1.070</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>1.524</td>
+                <td>1.356</td>
+            </tr>
+        </table>
+
 
         Si è seguita la stessa startegia per ogni query, indipendentemente dal modello usato: si sono dapprima create delle tabelle temporanee con i dati di interesse per
         la quesy vera e propria, selezionando quindi solo le righe o gli attributi rilevanti, successivamente si è scritta la query finale per rispondere alla specifica domanda.
@@ -1036,11 +1086,22 @@
                 </table>
             </div>
 
-            <div id= "query5">
-                <div class="bg1 section center" style="float:left; width:100%;justify-content:center;">
-                    <div id="containerQuery5" style="width:95%;height:800px;justify-content:center"></div>
+            <div>
+                <form id="pesi" action="#" method="post">
+                    <label>
+                        <input ng-model="slider.value" type="number" step="0.01"/>
+                    </label>
+                    <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider> {{slider}}
+                </form>
+
+                <div id= "query5">
+                    <div class="bg1 section center" style="float:left; width:100%;justify-content:center;">
+                        <div id="containerQuery5" style="width:95%;height:800px;justify-content:center"></div>
+                    </div>
                 </div>
             </div>
+
+
         </div>
     </section>
     <section id="query6-section" class="featured content-section">
