@@ -91,6 +91,10 @@
         .codeLine{
             padding-left: 10px;
         }
+        .slidecontainer {
+            width: 100%; /* Width of the outside container */
+        }
+
     </style>
 
 
@@ -295,10 +299,8 @@
             <h1><em>Dati</em></h1>
         </div>
 
-        <input id="ex1" data-slider-id='input.slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
-
         <div class="slidecontainer">
-            <input type="range" min="{{min}}" max="{{maxSlider}}" value="50" class="slider" id="myRange">
+            <input type="range" ng-model="{{valSlider}}" min="{{min}}" max="{{maxSlider}}" value="{{valSlider}}" class="slider" id="myRange">
         </div>
 
         I dati forniti descrivono una parte dello scenario universitario dell'università di Milano Bicocca, in particolare modellano il concetto di studente, corso di studi,
@@ -310,7 +312,7 @@
             <li>Iscrizione: appello e studente iscritto</li>
             <li>Esito: appello, studente, esito (superato, insufficienza, ritiro, assenza, voto)</li>
         </ul>
-
+        <input type="range" min="1" max="100" value="50">
         <div>
             <img src="src-site/img/modello-dati.png" alt="">
             <div class="text-content">

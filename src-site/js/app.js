@@ -718,8 +718,9 @@ var app = angular.module('myApp', [])
         let viz2;
         $scope.initQuery2 = function() {
             let containerDiv = document.getElementById("containerQuery2"),
-                url = "https://public.tableau.com/views/homework-BI/Dashboard2";
+                url = "https://public.tableau.com/views/homework-BI/Sheet2";
             viz2 = new tableau.Viz(containerDiv, url);
+
         };
 
         let viz3
