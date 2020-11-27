@@ -252,7 +252,7 @@
                 <label for="forSelCds">Seleziona i corsi di studi da esaminare</label>
                 <div id="forSelCds">
                     <select id="selCdsw" ng-model="selCds" class="selectpicker form-control dropdown" data-dropup-auto="false" multiple data-live-search="true"
-                            data-selected-text-format="count" data-actions-box="true" data-size="10" data-container="body" title="Nessun corso selezionato">
+                            data-selected-text-format="count" data-actions-box="true" data-size="12" data-container="body" title="Nessun corso selezionato">
                         <optgroup label="{{area_dip[0][0].toUpperCase()}} - {{area_dip[0][1]}}">
                             <option ng-repeat="x in cds | filter:{Area:area_dip[0][0], Dipartimento:area_dip[0][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
                         </optgroup>
@@ -917,7 +917,7 @@
                 valore nel periodo di osservazione, il periodo normalizzato è moltiplicato per il numero di esami di ognistudente. Se aumenta la differenza di giorni o diminuisce il
                 numero di esami lo studente sarà meno <em>Fast</em>, mentre se diminuisce la media sarà meno <em>Furious</em>
             </div>
-
+&apos;
             <div class="centerCont">
                 <table class="sqlContainer">
                     <tr>
@@ -959,6 +959,7 @@
                 <form id="pesi" action="#" method="post" style="margin-top: 50px;  width: 90%;">
                     <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
                 </form>
+                {{slider.value}}
 
                 <div id= "query5">
                     <div class="bg1 section center" style="float:left; width:100%;justify-content:center;">

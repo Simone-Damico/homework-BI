@@ -1,23 +1,7 @@
 var app = angular.module('myApp',  ['rzSlider'])
-    .service('DATA', function(){
-        this.area_dip = [
-            ['Economico statistica', 'DIPARTIMENTO DI ECONOMIA, METODI QUANTITATIVI E STRATEGIE DI IMPRESA'],
-            ['Economico statistica', "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L'ECONOMIA"],
-            ['Economico statistica', 'DIPARTIMENTO DI STATISTICA E METODI QUANTITATIVI'],
-            ['Formazione', 'DIPARTIMENTO DI SCIENZE UMANE PER LA FORMAZIONE'],
-            ['Giuridica', 'DIPARTIMENTO DI GIURISPRUDENZA (SCHOOL OF LAW)'],
-            ['Medica', 'DIPARTIMENTO DI MEDICINA E CHIRURGIA (SCHOOL OF MEDICINE AND SURGERY)'],
-            ['Medica', 'DIPARTIMENTO DI SCIENZE DELLA SALUTE'],
-            ['Psicologica', 'DIPARTIMENTO DI PSICOLOGIA'],
-            ['Scientifica', 'DIPARTIMENTO DI BIOTECNOLOGIE E BIOSCIENZE'],
-            ['Scientifica', 'DIPARTIMENTO DI FISICA'],
-            ['Scientifica', 'DIPARTIMENTO DI INFORMATICA, SISTEMISTICA E COMUNICAZIONE'],
-            ['Scientifica', 'DIPARTIMENTO DI MATEMATICA E APPLICAZIONI'],
-            ['Scientifica', 'DIPARTIMENTO DI SCIENZA DEI MATERIALI'],
-            ['Scientifica', "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)"],
-            ['Sociologica', 'DIPARTIMENTO DI SOCIOLOGIA E RICERCA SOCIALE']
-        ]
-        this.cds = [
+    .controller('myCtrl', function($scope) {
+
+        $scope.cds =  [
             {
                 "cds": "[524] SCIENZE DELL'EDUCAZIONE",
                 "Area": "Formazione",
@@ -676,11 +660,30 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "disattivato": 0
             }
         ]
-    })
-    .controller('myCtrl', function($scope, DATA) {
+        $scope.area_dip = [
+            ['Economico statistica', 'DIPARTIMENTO DI ECONOMIA, METODI QUANTITATIVI E STRATEGIE DI IMPRESA'],
+            ['Economico statistica', "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L'economia"],
+            ['Economico statistica', 'DIPARTIMENTO DI STATISTICA E METODI QUANTITATIVI'],
+            ['Formazione', 'DIPARTIMENTO DI SCIENZE UMANE PER LA FORMAZIONE'],
+            ['Giuridica', 'DIPARTIMENTO DI GIURISPRUDENZA (SCHOOL OF LAW)'],
+            ['Medica', 'DIPARTIMENTO DI MEDICINA E CHIRURGIA (SCHOOL OF MEDICINE AND SURGERY)'],
+            ['Medica', 'DIPARTIMENTO DI SCIENZE DELLA SALUTE'],
+            ['Psicologica', 'DIPARTIMENTO DI PSICOLOGIA'],
+            ['Scientifica', 'DIPARTIMENTO DI BIOTECNOLOGIE E BIOSCIENZE'],
+            ['Scientifica', 'DIPARTIMENTO DI FISICA'],
+            ['Scientifica', 'DIPARTIMENTO DI INFORMATICA, SISTEMISTICA E COMUNICAZIONE'],
+            ['Scientifica', 'DIPARTIMENTO DI MATEMATICA E APPLICAZIONI'],
+            ['Scientifica', 'DIPARTIMENTO DI SCIENZA DEI MATERIALI'],
+            ['Scientifica', "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)"],
+            ['Sociologica', 'DIPARTIMENTO DI SOCIOLOGIA E RICERCA SOCIALE']
+        ]
 
-        $scope.cds = DATA.cds
-        $scope.area_dip = DATA.area_dip
+        $scope.clearCds = function(s) {
+            console.log("s", s)
+            a = s.replace("&apos;", "'")
+            console.log("a", a)
+            return a
+        }
 
         $scope.selCds = [];
 
@@ -694,8 +697,8 @@ var app = angular.module('myApp',  ['rzSlider'])
                 translate: function(value) {
                     return 'peso voto: ' + value +"% - " + (100-value) + "% :peso giorni "
                 },
-                onChange: function(value) {
-                    $scope.setPesiViz5(value/100)
+                onChange: function() {
+                    $scope.setPesiViz5($scope.slider.value/100)
                 },
             }
         };
@@ -753,10 +756,6 @@ var app = angular.module('myApp',  ['rzSlider'])
         };
 
         $scope.chooseCds = function() {
-            console.log($scope.selCds.length);
-            console.log($scope.cds.length)
-            console.log(viz1.getWorkbook())
-
             $scope.setFilterViz(viz1, "CDS", $scope.selCds, 'replace')
             $scope.setFilterViz(viz2, "Corso di studi", $scope.selCds, 'replace')
             $scope.setFilterViz(viz3, "Cds", $scope.selCds, 'replace')
@@ -765,8 +764,6 @@ var app = angular.module('myApp',  ['rzSlider'])
             $scope.setFilterViz(viz5, "Cds", $scope.selCds, 'replace')
             $scope.setFilterViz(viz6, "Cds", $scope.selCds, 'replace')
             $scope.setFilterViz(viz7, "Cds", $scope.selCds, 'replace')
-
-            console.log("gggggg")
         };
 
         $scope.addValuesToFilter = function() {
@@ -780,7 +777,6 @@ var app = angular.module('myApp',  ['rzSlider'])
             try {
                 // la viz è un sheet
                 if (type === 'replace') {
-                    console.log("quiiiii")
                     viz.getWorkbook().getActiveSheet().applyFilterAsync(filter, values, tableau.FilterUpdateType.REPLACE)
                 }
             } catch (e) {
@@ -798,7 +794,6 @@ var app = angular.module('myApp',  ['rzSlider'])
         }
 
         $scope.setPesiViz5 = function(value) {
-            console.log("da fun", value)
             viz5.getWorkbook().changeParameterValueAsync('peso voto', String(value).replace(".", ","))
             viz5.getWorkbook().changeParameterValueAsync('peso giorni', String(1-value).replace(".", ","))
         }
