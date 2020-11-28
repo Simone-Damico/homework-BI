@@ -96,7 +96,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[E1802M] ECONOMIA E AMMINISTRAZIONE DELLE IMPRESE",
                 "Area": "Economico statistica",
                 "Nome": "ECONOMIA E AMMINISTRAZIONE DELLE IMPRESE",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L'ECONOMIA   ",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L ECONOMIA   ",
                 "tipo": "Laurea triennale (DM 270)",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -105,7 +105,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[E1803M] ECONOMIA DELLE BANCHE, DELLE ASSICURAZIONI E DEGLI INTERMEDIARI FINANZIARI",
                 "Area": "Economico statistica",
                 "Nome": "ECONOMIA DELLE BANCHE, DELLE ASSICURAZIONI E DEGLI INTERMEDIARI FINANZIARI",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L'ECONOMIA  ",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L ECONOMIA  ",
                 "tipo": "Laurea triennale (DM 270)",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -204,7 +204,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[E3201Q] SCIENZE E TECNOLOGIE PER L'AMBIENTE",
                 "Area": "Scientifica",
                 "Nome": "SCIENZE E TECNOLOGIE PER L'AMBIENTE",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
                 "tipo": "Laurea triennale (DM 270)",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -222,7 +222,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[E3401Q] SCIENZE E TECNOLOGIE GEOLOGICHE",
                 "Area": "Scientifica",
                 "Nome": "SCIENZE E TECNOLOGIE GEOLOGICHE",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
                 "tipo": "Laurea triennale (DM 270)",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -402,7 +402,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[F5401Q] SCIENZE E TECNOLOGIE CHIMICHE",
                 "Area": "Scientifica",
                 "Nome": "SCIENZE E TECNOLOGIE CHIMICHE",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
                 "tipo": "Corso di Laurea Magistrale",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -438,7 +438,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[F6302N] MANAGEMENT E DESIGN DEI SERVIZI",
                 "Area": "Economico statistica",
                 "Nome": "MANAGEMENT E DESIGN DEI SERVIZI",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L'ECONOMIA",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L ECONOMIA",
                 "tipo": "Corso di Laurea Magistrale",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -447,7 +447,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[F7401Q] SCIENZE E TECNOLOGIE GEOLOGICHE",
                 "Area": "Scientifica",
                 "Nome": "SCIENZE E TECNOLOGIE GEOLOGICHE",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
                 "tipo": "Corso di Laurea Magistrale",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -456,7 +456,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[F7501Q] SCIENZE E TECNOLOGIE PER L'AMBIENTE E IL TERRITORIO",
                 "Area": "Scientifica",
                 "Nome": "SCIENZE E TECNOLOGIE PER L'AMBIENTE E IL TERRITORIO",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
                 "tipo": "Corso di Laurea Magistrale",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -465,7 +465,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[F7502Q] MARINE SCIENCES - SCIENZE MARINE",
                 "Area": "Scientifica",
                 "Nome": "MARINE SCIENCES - SCIENZE MARINE",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE DELL AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)",
                 "tipo": "Corso di Laurea Magistrale",
                 "Lingua": "Inglese",
                 "disattivato": 0
@@ -483,7 +483,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "cds": "[F7701M] SCIENZE ECONOMICO-AZIENDALI",
                 "Area": "Economico statistica",
                 "Nome": "SCIENZE ECONOMICO-AZIENDALI",
-                "Dipartimento": "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L'ECONOMIA",
+                "Dipartimento": "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L ECONOMIA",
                 "tipo": "Corso di Laurea Magistrale",
                 "Lingua": "Italiano",
                 "disattivato": 0
@@ -662,7 +662,7 @@ var app = angular.module('myApp',  ['rzSlider'])
         ]
         $scope.area_dip = [
             ['Economico statistica', 'DIPARTIMENTO DI ECONOMIA, METODI QUANTITATIVI E STRATEGIE DI IMPRESA'],
-            ['Economico statistica', "DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L'economia"],
+            ['Economico statistica', 'DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L ECONOMIA'],
             ['Economico statistica', 'DIPARTIMENTO DI STATISTICA E METODI QUANTITATIVI'],
             ['Formazione', 'DIPARTIMENTO DI SCIENZE UMANE PER LA FORMAZIONE'],
             ['Giuridica', 'DIPARTIMENTO DI GIURISPRUDENZA (SCHOOL OF LAW)'],
@@ -674,16 +674,9 @@ var app = angular.module('myApp',  ['rzSlider'])
             ['Scientifica', 'DIPARTIMENTO DI INFORMATICA, SISTEMISTICA E COMUNICAZIONE'],
             ['Scientifica', 'DIPARTIMENTO DI MATEMATICA E APPLICAZIONI'],
             ['Scientifica', 'DIPARTIMENTO DI SCIENZA DEI MATERIALI'],
-            ['Scientifica', "DIPARTIMENTO DI SCIENZE DELL'AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)"],
+            ['Scientifica', 'DIPARTIMENTO DI SCIENZE DELL AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)'],
             ['Sociologica', 'DIPARTIMENTO DI SOCIOLOGIA E RICERCA SOCIALE']
         ]
-
-        $scope.clearCds = function(s) {
-            console.log("s", s)
-            a = s.replace("&apos;", "'")
-            console.log("a", a)
-            return a
-        }
 
         $scope.selCds = [];
 
@@ -756,7 +749,8 @@ var app = angular.module('myApp',  ['rzSlider'])
         };
 
         $scope.chooseCds = function() {
-            $scope.setFilterViz(viz1, "CDS", $scope.selCds, 'replace')
+            console.log("ddddd", $scope.selCds)
+            $scope.setFilterViz(viz1, "CDS", $scope.selCds, 'replace', "v1")
             $scope.setFilterViz(viz2, "Corso di studi", $scope.selCds, 'replace')
             $scope.setFilterViz(viz3, "Cds", $scope.selCds, 'replace')
             $scope.setParameterViz(viz3,'Limit', Math.min(10, $scope.selCds.length))
@@ -773,7 +767,8 @@ var app = angular.module('myApp',  ['rzSlider'])
                 tableau.FilterUpdateType.REPLACE)
         }
 
-        $scope.setFilterViz = function (viz, filter, values, type) {
+        $scope.setFilterViz = function (viz, filter, values, type, v="cc") {
+            console.log(viz, filter, values, type, v);
             try {
                 // la viz è un sheet
                 if (type === 'replace') {
