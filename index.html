@@ -313,12 +313,12 @@
                 <br>suddivisa per anni e per corso di laurea.</p>
         </div>
         <div>
-            Dalla data si è estratto l'anno prendendo le ultime due cifre e aggiungiendo il millennio, in questo modo è stato possibile raggruppare gli studenti in base al
-            corso di studi e alla data di appello. Nella visualizzazione si costruito un stacked bar chart in cui ogni barra è il giorno di un appello, le sezioni colorate
-            sono i corsi per cui c'è stato un appello in quella data e il valore di ogni sezione è il numero di iscritti per ogni corso. Per poter ordinare le date nella
+            Dalla data si è estratto l'anno prendendo le ultime due cifre e aggiungendo il millennio, in questo modo è stato possibile raggruppare gli studenti in base al
+            corso di studi e alla data di appello. Nella visualizzazione si è costruito uno stacked bar chart in cui ogni barra è il giorno di un appello, le sezioni colorate
+            sono i corsi per cui c'è stato un appello in quella data e il valore di ogni sezione è il numero di iscritti per ogni corso. Per poter ordinare le date nel
             risultato si è dovuto cambiare il formato da dd/mm/Y al formato Y-m-d.<br>
-            Nel caso del  del modello normalizzato la query è simile: le tabelle coinvolte sono <b>appelli</b> e <b>iscrizioni</b>, la normalizzazione delle date è diversa, il formato usato è
-            d/m/Y quindi nella clausula <code class="sql">CASE</code> si sono gestiti quattro casi a seconda se il giorno o l'anno fossero a due cifre.
+            Nel caso del modello normalizzato la query è simile: le tabelle coinvolte sono <b>appelli</b> e <b>iscrizioni</b>, la normalizzazione delle date è diversa, il formato usato è
+            d/m/Y quindi nella clausola <code class="sql">CASE</code> si sono gestiti quattro casi a seconda se il giorno o l'anno fossero o meno a due cifre.
         </div>
 
         <div>
@@ -378,7 +378,7 @@
             hanno partecipato all'appello</i></b>.
         </div>
         <div>
-            Per prima cosa si è calcolato il tasso di superamento per ogni attività didattica eper ogni anno accademico presente considerando sia tutti gli studenti iscritti e
+            Per prima cosa si è calcolato il tasso di superamento per ogni attività didattica e per ogni anno accademico presente considerando sia tutti gli studenti iscritti e
             sia solo quelli che hanno passati la specifica attività didattica.
         </div>
 
@@ -653,7 +653,7 @@
         </div>
 
         <div>
-            Si sono selezionati le prime tre e le ultime tre attività didattiche per ogni corso di studio. Nella visualizzazione si è scelto di mostrare solo i corsi di studi con
+            Si sono selezionate le prime tre e le ultime tre attività didattiche per ogni corso di studio. Nella visualizzazione si è scelto di mostrare solo i corsi di studi con
             almeno sei corsi per i quali, quindi ha senso fare un confronto tra i primi tre e gli ultimi tre.
         </div>
 
@@ -797,7 +797,7 @@
             </div>
 
             <div>
-                In questa query si sono considerati solo gli studenti che hanno fatto un numero di esame almeno uguale alla mediani degli esami per studenti (che ha valore 7).
+                In questa query si sono considerati solo gli studenti che hanno fatto un numero di esame almeno uguale alla mediana degli esami per studenti (che ha valore 7).
                 Per ognuno di loro si calcola la media sugli esami sostenuti e la differenza in giorni tra il primo esame e l'ultimo.
             </div>
 
@@ -914,7 +914,7 @@
 
             <div>
                 L'indicatore <em>Fast & Furious</em> è calcolato come combinazione lineare tra la media e la differenza di giorni entrambi normalizzati come rapporto con il massimo
-                valore nel periodo di osservazione, il periodo normalizzato è moltiplicato per il numero di esami di ognistudente. Se aumenta la differenza di giorni o diminuisce il
+                valore nel periodo di osservazione, il periodo normalizzato è moltiplicato per il numero di esami di ogni studente. Se aumenta la differenza di giorni o diminuisce il
                 numero di esami lo studente sarà meno <em>Fast</em>, mentre se diminuisce la media sarà meno <em>Furious</em>
             </div>
 &apos;
@@ -1032,11 +1032,12 @@
     </section>
     <section id="query7-section" class="featured content-section">
         <div class="section-heading">
-            <h1>Query 7<br><em>DARE NOME</em></h1>
-            <p>DIRE DESCRIZIONE.</p>
+            <h1>Query 7<br><em>Scholarship</em></h1>
+            <p>Si è calcolato quanto costa ogni corso di studio in base ai crediti di merito che ricevono gli studenti che lo compongono.</p>
         </div>
         <div>
-            Si sono calcolati, per ogni corso di studi, il numero di studenti che hanno la media appartenente alle tre fasce.
+            Si sono calcolati, per ogni corso di studi, il numero di studenti che hanno la media appartenente alle tre fasce. Nella prima fascia rientrano gli studenti con una media tra 27 e 28 e hanno diritto a 125&euro;, 
+			la seconda tra 28 e 29 con 250&euro; e la terza con voto maggiore o uguale a 29 da diritto a 500&euro;.
         </div>
 
         <div class="centerCont">
@@ -1279,7 +1280,7 @@
         </div>
         <div>
             <ul class="par">
-                <li>Davide Porcellini - MATRICOLA<br>
+                <li>Davide Porcellini - 816586<br>
                     Corso di laurea magistrale in Data Science<br>
                     Università degli studi di Milano Bicocca - Dipartimento di Informatica, Sistemistica e Comunicazione DISCo</li>
                 <li>Simone D’amico - 850369<br>
