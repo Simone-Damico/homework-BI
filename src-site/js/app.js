@@ -12,7 +12,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "disattivato": 0
             },
             {
-                "cds": "[541] SCIENZE DEL TURISMO E COMUNITÀ LOCALE(C.SO A DISTANZA)",
+                "cds": "[541] SCIENZE DEL TURISMO E COMUNITA' LOCALE(C.SO A DISTANZA)",
                 "Area": "Sociologica",
                 "Nome": "SCIENZE DEL TURISMO E COMUNITÀ LOCALE",
                 "Dipartimento": "DIPARTIMENTO DI SOCIOLOGIA E RICERCA SOCIALE",
