@@ -12,9 +12,9 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "disattivato": 0
             },
             {
-                "cds": "[541] SCIENZE DEL TURISMO E COMUNITA' LOCALE(C.SO A DISTANZA)",
+                "cds": "[541] SCIENZE DEL TURISMO E COMUNITÀ LOCALE(C.SO A DISTANZA)",
                 "Area": "Sociologica",
-                "Nome": "SCIENZE DEL TURISMO E COMUNITA' LOCALE",
+                "Nome": "SCIENZE DEL TURISMO E COMUNITÀ LOCALE",
                 "Dipartimento": "DIPARTIMENTO DI SOCIOLOGIA E RICERCA SOCIALE",
                 "tipo": "Laurea triennale (DM 270)",
                 "Lingua": "Italiano",
@@ -57,18 +57,18 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "disattivato": 0
             },
             {
-                "cds": "[E1501N] SCIENZE DEL TURISMO E COMUNITA' LOCALE",
+                "cds": "[E1501N] SCIENZE DEL TURISMO E COMUNITÀ LOCALE",
                 "Area": "Sociologica",
-                "Nome": "SCIENZE DEL TURISMO E COMUNITA' LOCALE",
+                "Nome": "SCIENZE DEL TURISMO E COMUNITÀ LOCALE",
                 "Dipartimento": "DIPARTIMENTO DI SOCIOLOGIA E RICERCA SOCIALE",
                 "tipo": "Laurea triennale (DM 270)",
                 "Lingua": "Italiano",
                 "disattivato": 0
             },
             {
-                "cds": "[E1502N] SCIENZE DEL TURISMO E COMUNITA' LOCALE (NETTUNO)",
+                "cds": "[E1502N] SCIENZE DEL TURISMO E COMUNITÀ LOCALE (NETTUNO)",
                 "Area": "Sociologica",
-                "Nome": "SCIENZE DEL TURISMO E COMUNITA' LOCALE",
+                "Nome": "SCIENZE DEL TURISMO E COMUNITÀ LOCALE",
                 "Dipartimento": "DIPARTIMENTO DI SOCIOLOGIA E RICERCA SOCIALE",
                 "tipo": "Laurea triennale (DM 270)",
                 "Lingua": "Italiano",
@@ -615,9 +615,9 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "disattivato": 0
             },
             {
-                "cds": "[I0202D] TERAPIA DELLA NEURO E PSICOMOTRICITA' DELL'ETA' EVOLUTIVA (ABILITANTE ALLA PROFESSIONE SANITARIA DI TERAPISTA DELLA NEURO E PSICOMOTRICITA' DELL'ETA' EVOLUTIVA)",
+                "cds": "[I0202D] TERAPIA DELLA NEURO E PSICOMOTRICITÀ DELL'ETÀ EVOLUTIVA (ABILITANTE ALLA PROFESSIONE SANITARIA DI TERAPISTA DELLA NEURO E PSICOMOTRICITÀ DELL'ETÀ EVOLUTIVA)",
                 "Area": "Medica",
-                "Nome": "TERAPIA DELLA NEURO E PSICOMOTRICITA' DELL'ETA' EVOLUTIVA (ABILITANTE ALLA PROFESSIONE SANITARIA DI TERAPISTA DELLA NEURO E PSICOMOTRICITA' DELL'ETA' EVOLUTIVA)",
+                "Nome": "TERAPIA DELLA NEURO E PSICOMOTRICITÀ DELL'ETÀ EVOLUTIVA (ABILITANTE ALLA PROFESSIONE SANITARIA DI TERAPISTA DELLA NEURO E PSICOMOTRICITÀ DELL'ETÀ EVOLUTIVA)",
                 "Dipartimento": "DIPARTIMENTO DI MEDICINA E CHIRURGIA (SCHOOL OF MEDICINE AND SURGERY)",
                 "tipo": "Laurea triennale (DM 270)",
                 "Lingua": "Italiano",
@@ -659,7 +659,7 @@ var app = angular.module('myApp',  ['rzSlider'])
                 "Lingua": "Italiano",
                 "disattivato": 0
             }
-        ]
+        ];
         $scope.area_dip = [
             ['Economico statistica', 'DIPARTIMENTO DI ECONOMIA, METODI QUANTITATIVI E STRATEGIE DI IMPRESA'],
             ['Economico statistica', 'DIPARTIMENTO DI SCIENZE ECONOMICO-AZIENDALI E DIRITTO PER L ECONOMIA'],
@@ -676,7 +676,7 @@ var app = angular.module('myApp',  ['rzSlider'])
             ['Scientifica', 'DIPARTIMENTO DI SCIENZA DEI MATERIALI'],
             ['Scientifica', 'DIPARTIMENTO DI SCIENZE DELL AMBIENTE E DELLA TERRA (DEPARTMENT OF EARTH AND ENVIRONMENTAL SCIENCES - DISAT)'],
             ['Sociologica', 'DIPARTIMENTO DI SOCIOLOGIA E RICERCA SOCIALE']
-        ]
+        ];
 
         $scope.selCds = [];
 
@@ -699,14 +699,12 @@ var app = angular.module('myApp',  ['rzSlider'])
         $scope.pesoViz5 = $scope.slider.value;
 
         $scope.clearCdsName = function(s) {
-            const l = 65
-            console.log(s)
+            const l = 65;
             if (s.length > l){
                 return s.slice(0, l-4) + "..."
             }
             return s
-
-        }
+        };
 
         let viz1;
         $scope.initQuery1 = function() {
@@ -723,35 +721,35 @@ var app = angular.module('myApp',  ['rzSlider'])
 
         };
 
-        let viz3
+        let viz3;
         $scope.initQuery3 = function() {
             let containerDiv = document.getElementById("containerQuery3"),
                 url = "https://public.tableau.com/views/homework-BI/Dashboard3";
             viz3 = new tableau.Viz(containerDiv, url);
         };
 
-        let viz4
+        let viz4;
         $scope.initQuery4 = function() {
             let containerDiv = document.getElementById("containerQuery4"),
                 url = "https://public.tableau.com/views/homework-BI/Sheet6";
             viz4 = new tableau.Viz(containerDiv, url);
         };
 
-        let viz5
+        let viz5;
         $scope.initQuery5 = function() {
             let containerDiv = document.getElementById("containerQuery5"),
                 url = "https://public.tableau.com/views/homework-BI/Dashboard5";
             viz5 = new tableau.Viz(containerDiv, url);
         };
 
-        let viz6
+        let viz6;
         $scope.initQuery6= function() {
             let containerDiv = document.getElementById("containerQuery6"),
                 url = "https://public.tableau.com/views/homework-BI/Dashboard4";
             viz6 = new tableau.Viz(containerDiv, url);
         };
 
-        let viz7
+        let viz7;
         $scope.initQuery7 = function() {
             let containerDiv = document.getElementById("containerQuery7"),
                 url = "https://public.tableau.com/views/homework-BI/Sheet10";
@@ -759,23 +757,22 @@ var app = angular.module('myApp',  ['rzSlider'])
         };
 
         $scope.chooseCds = function() {
-            viz1.getWorkbook().getActiveSheet().applyFilterAsync("CDS", $scope.selCds, tableau.FilterUpdateType.REPLACE)
-            viz2.getWorkbook().getActiveSheet().applyFilterAsync("Corso di studi", $scope.selCds, tableau.FilterUpdateType.REPLACE)
-            viz3.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
-            viz4.getWorkbook().getActiveSheet().applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
-            viz5.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
-            viz6.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
-            viz7.getWorkbook().getActiveSheet().applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
-            $scope.setParameterViz(viz3,'Limit', Math.min(10, $scope.selCds.length))
+            viz1.getWorkbook().getActiveSheet().applyFilterAsync("CDS", $scope.selCds, tableau.FilterUpdateType.REPLACE);
+            viz2.getWorkbook().getActiveSheet().applyFilterAsync("Corso di studi", $scope.selCds, tableau.FilterUpdateType.REPLACE);
+            viz3.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE);
+            viz4.getWorkbook().getActiveSheet().applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE);
+            viz5.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE);
+            viz6.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE);
+            viz7.getWorkbook().getActiveSheet().applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE);
+            $scope.setParameterViz(viz3,'Limit', Math.min(10, $scope.selCds.length));
         };
 
         $scope.setParameterViz = function (viz, param, value) {
-            viz.getWorkbook().changeParameterValueAsync(param, value)
-        }
+            viz.getWorkbook().changeParameterValueAsync(param, value);
+        };
 
         $scope.setPesiViz5 = function(value) {
-            viz5.getWorkbook().changeParameterValueAsync('peso voto', String(value).replace(".", ","))
-            viz5.getWorkbook().changeParameterValueAsync('peso giorni', String(1-value).replace(".", ","))
+            viz5.getWorkbook().changeParameterValueAsync('peso voto', String(value).replace(".", ","));
+            viz5.getWorkbook().changeParameterValueAsync('peso giorni', String(1-value).replace(".", ","));
         }
-
     });
