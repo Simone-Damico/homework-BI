@@ -749,40 +749,15 @@ var app = angular.module('myApp',  ['rzSlider'])
         };
 
         $scope.chooseCds = function() {
-            console.log("ddddd", $scope.selCds)
-            $scope.setFilterViz(viz1, "CDS", $scope.selCds, 'replace', "v1")
-            $scope.setFilterViz(viz2, "Corso di studi", $scope.selCds, 'replace')
-            $scope.setFilterViz(viz3, "Cds", $scope.selCds, 'replace')
+            viz1.getWorkbook().getActiveSheet().applyFilterAsync("CDS", $scope.selCds, tableau.FilterUpdateType.REPLACE)
+            viz2.getWorkbook().getActiveSheet().applyFilterAsync("Corso di studi", $scope.selCds, tableau.FilterUpdateType.REPLACE)
+            viz3.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
+            viz4.getWorkbook().getActiveSheet().applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
+            viz5.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
+            viz6.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
+            viz7.getWorkbook().getActiveSheet().applyFilterAsync("Cds", $scope.selCds, tableau.FilterUpdateType.REPLACE)
             $scope.setParameterViz(viz3,'Limit', Math.min(10, $scope.selCds.length))
-            $scope.setFilterViz(viz4, "Cds", $scope.selCds, 'replace')
-            $scope.setFilterViz(viz5, "Cds", $scope.selCds, 'replace')
-            $scope.setFilterViz(viz6, "Cds", $scope.selCds, 'replace')
-            $scope.setFilterViz(viz7, "Cds", $scope.selCds, 'replace')
         };
-
-        $scope.addValuesToFilter = function() {
-            console.log(a)
-            a.getWorkbook().getActiveSheet().applyFilterAsync("Corso Di Studi",
-                ["[541] SCIENZE DEL TURISMO E COMUNITA' LOCALE(C.SO A DISTANZA)"],
-                tableau.FilterUpdateType.REPLACE)
-        }
-
-        $scope.setFilterViz = function (viz, filter, values, type, v="cc") {
-            console.log(viz, filter, values, type, v);
-            try {
-                // la viz è un sheet
-                if (type === 'replace') {
-                    viz.getWorkbook().getActiveSheet().applyFilterAsync(filter, values, tableau.FilterUpdateType.REPLACE)
-                }
-            } catch (e) {
-                // la viz è una dashbord
-                print(e)
-                if (type === 'replace') {
-                    viz.getWorkbook().getActiveSheet().getWorksheets()[0].applyFilterAsync(
-                        filter, values, tableau.FilterUpdateType.REPLACE)
-                }
-            }
-        }
 
         $scope.setParameterViz = function (viz, param, value) {
             viz.getWorkbook().changeParameterValueAsync(param, value)
