@@ -698,6 +698,16 @@ var app = angular.module('myApp',  ['rzSlider'])
 
         $scope.pesoViz5 = $scope.slider.value;
 
+        $scope.clearCdsName = function(s) {
+            const l = 65
+            console.log(s)
+            if (s.length > l){
+                return s.slice(0, l-4) + "..."
+            }
+            return s
+
+        }
+
         let viz1;
         $scope.initQuery1 = function() {
             let containerDiv = document.getElementById("containerQuery1"),

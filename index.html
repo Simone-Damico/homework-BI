@@ -252,52 +252,53 @@
             <div class="form-group">
                 <label for="forSelCds">Seleziona i corsi di studi da esaminare</label>
                 <div id="forSelCds">
-                    <select id="selCdsw" ng-model="selCds" class="selectpicker form-control dropdown" data-dropup-auto="false" multiple data-live-search="true"
-                            data-selected-text-format="count" data-actions-box="true" data-size="12" data-container="body" title="Nessun corso selezionato">
-                        <optgroup label="{{area_dip[0][0].toUpperCase()}} - {{area_dip[0][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[0][0], Dipartimento:area_dip[0][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                    <select id="selCdsw" ng-model="selCds" class="selectpicker form-control dropdown"
+                            data-dropup-auto="false" multiple data-live-search="true"
+                            data-selected-text-format="count" data-actions-box="true" data-size="10" data-container="body" title="Nessun corso selezionato">
+                        <optgroup label="{{area_dip[0][0].toUpperCase()}} - {{area_dip[0][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[0][0], Dipartimento:area_dip[0][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[1][0].toUpperCase()}} - {{area_dip[1][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[1][0], Dipartimento:area_dip[1][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[1][0].toUpperCase()}} - {{area_dip[1][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[1][0], Dipartimento:area_dip[1][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[2][0].toUpperCase()}} - {{area_dip[2][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[2][0], Dipartimento:area_dip[2][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[2][0].toUpperCase()}} - {{area_dip[2][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[2][0], Dipartimento:area_dip[2][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[3][0].toUpperCase()}} - {{area_dip[3][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[3][0], Dipartimento:area_dip[3][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[3][0].toUpperCase()}} - {{area_dip[3][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[3][0], Dipartimento:area_dip[3][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[4][0].toUpperCase()}} - {{area_dip[4][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[4][0], Dipartimento:area_dip[4][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[4][0].toUpperCase()}} - {{area_dip[4][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[4][0], Dipartimento:area_dip[4][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[5][0].toUpperCase()}} - {{area_dip[5][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[5][0], Dipartimento:area_dip[5][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[5][0].toUpperCase()}} - {{area_dip[5][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[5][0], Dipartimento:area_dip[5][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[6][0].toUpperCase()}} - {{area_dip[6][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[6][0], Dipartimento:area_dip[6][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[6][0].toUpperCase()}} - {{area_dip[6][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[6][0], Dipartimento:area_dip[6][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[7][0].toUpperCase()}} - {{area_dip[7][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[7][0], Dipartimento:area_dip[7][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[7][0].toUpperCase()}} - {{area_dip[7][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[7][0], Dipartimento:area_dip[7][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[8][0].toUpperCase()}} - {{area_dip[8][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[8][0], Dipartimento:area_dip[8][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[8][0].toUpperCase()}} - {{area_dip[8][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[8][0], Dipartimento:area_dip[8][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[9][0].toUpperCase()}} - {{area_dip[9][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[9][0], Dipartimento:area_dip[9][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[9][0].toUpperCase()}} - {{area_dip[9][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[9][0], Dipartimento:area_dip[9][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[10][0].toUpperCase()}} - {{area_dip[10][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[10][0], Dipartimento:area_dip[10][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[10][0].toUpperCase()}} - {{area_dip[10][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[10][0], Dipartimento:area_dip[10][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[11][0].toUpperCase()}} - {{area_dip[11][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[11][0], Dipartimento:area_dip[11][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[11][0].toUpperCase()}} - {{area_dip[11][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[11][0], Dipartimento:area_dip[11][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[12][0].toUpperCase()}} - {{area_dip[12][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[12][0], Dipartimento:area_dip[12][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[12][0].toUpperCase()}} - {{area_dip[12][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[12][0], Dipartimento:area_dip[12][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[13][0].toUpperCase()}} - {{area_dip[13][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[13][0], Dipartimento:area_dip[13][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[13][0].toUpperCase()}} - {{area_dip[13][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[13][0], Dipartimento:area_dip[13][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
-                        <optgroup label="{{area_dip[14][0].toUpperCase()}} - {{area_dip[14][1]}}">
-                            <option ng-repeat="x in cds | filter:{Area:area_dip[14][0], Dipartimento:area_dip[14][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{x.cds}}</option>
+                        <optgroup label="{{area_dip[14][0].toUpperCase()}} - {{area_dip[14][1].slice(0,75)}}...">
+                            <option ng-repeat="x in cds | filter:{Area:area_dip[14][0], Dipartimento:area_dip[14][1]}" ng-value="x.cds" data-subtext="{{x.tipo}} {{x.disattivato == 1? '- Corso disattivato' : ''}}">{{clearCdsName(x.cds)}}</option>
                         </optgroup>
                     </select>
 
