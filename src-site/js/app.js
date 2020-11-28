@@ -737,14 +737,14 @@ var app = angular.module('myApp',  ['rzSlider'])
         let viz5
         $scope.initQuery5 = function() {
             let containerDiv = document.getElementById("containerQuery5"),
-                url = "https://public.tableau.com/views/homework-BI/Sheet7";
+                url = "https://public.tableau.com/views/homework-BI/Dashboard5";
             viz5 = new tableau.Viz(containerDiv, url);
         };
 
         let viz6
         $scope.initQuery6= function() {
             let containerDiv = document.getElementById("containerQuery6"),
-                url = "https://public.tableau.com/views/homework-BI/Sheet9";
+                url = "https://public.tableau.com/views/homework-BI/Dashboard4";
             viz6 = new tableau.Viz(containerDiv, url);
         };
 
