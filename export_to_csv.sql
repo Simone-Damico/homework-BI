@@ -1,4 +1,7 @@
--- query 1
+-- Query 1
+.header on
+.mode csv
+.output "csv/query1.csv"
 SELECT a.cdscod, cds, substr(dtappello, -4) AS year,
        CASE
            when dtappello like '__/_/%'
@@ -15,6 +18,9 @@ GROUP BY a.cdscod, year, DtAppello, cds
 ORDER BY data;
 
 -- query 2
+.header on
+.mode csv
+.output "csv/query2.csv"
 DROP TABLE IF EXISTS iscr_sup_ratio_norm;
 CREATE TEMPORARY TABLE iscr_sup_ratio_norm AS
     SELECT res.cdscod AS cdscod, res.cds AS cds, res.year AS year, res.adcod AS adcod, ad,
@@ -47,6 +53,9 @@ ORDER BY a.cdscod, a.year, a.ratio;
 
 
 -- query 3
+.header on
+.mode csv
+.output "csv/query3.csv"
 SELECT res.CdS AS cds, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti AS tasso_commit
 FROM (
     SELECT *
@@ -78,7 +87,9 @@ CREATE TEMPORARY TABLE media_voto_norm AS
     WHERE Superamento = 1 AND Voto IS NOT NULL
     GROUP BY a.cdscod, CdS, a.adcod, AD;
 
-
+.header on
+.mode csv
+.output "csv/query4_migliori.csv"
 -- migliori 3
 SELECT *
 FROM media_voto_norm AS a
@@ -91,7 +102,9 @@ WHERE a.adcod IN (
     )
 ORDER BY a.cdscod, a.voto DESC;
 
-
+.header on
+.mode csv
+.output "csv/query4_peggiori.csv"
 -- peggiori 3
 SELECT *
 FROM media_voto_norm AS a
@@ -105,6 +118,10 @@ WHERE a.adcod IN (
 ORDER BY a.cdscod, a.voto;
 
 
+
+.header on
+.mode csv
+.output "csv/query5.csv"
 -- query 5
 DROP TABLE IF EXISTS median;
 CREATE TEMPORARY TABLE median AS
@@ -165,13 +182,17 @@ FROM (
 FROM fast_furious_norm) AS r
 ORDER BY ratio DESC;
 
+
 -- query 6
+.header on
+.mode csv
+.output "csv/query6.csv"
 SELECT a.adcod, a.AD, a.cds, avg(a.tent) AS tentativi
 FROM (
     SELECT ad.AdCod, CdS, ad, count(*) AS tent
     FROM iscrizioni JOIN appelli ON iscrizioni.appcod=appelli.appcod JOIN ad ON appelli.adcod=ad.adcod
         JOIN cds AS c ON appelli.cdscod = c.cdscod
-	WHERE Superamento = 0
+            WHERE Superamento = 0
     GROUP BY Studente, ad, ad.AdCod, CdS) AS a
 GROUP BY a.adcod, a.AD
 ORDER BY tentativi DESC
@@ -180,6 +201,9 @@ LIMIT 3;
 
 -- query 7
 -- calcolo medie
+.header on
+.mode csv
+.output "csv/query7.csv"
 DROP TABLE IF EXISTS media_27_norm;
 CREATE TEMPORARY TABLE media_27_norm AS
     SELECT v27.CdSCod AS cdscod, v27.CdS AS cds, count(v27.voto27) AS media_v27
