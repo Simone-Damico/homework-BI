@@ -47,22 +47,21 @@ SELECT res.CdS AS cds, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti AS tasso_
 FROM (
     SELECT *
     FROM (
-        SELECT c.cdscod, cds, dtappello, sum(count) AS sum_commit
+        SELECT CdSCod, CdS, sum(count) AS sum_tutti
         FROM (
-            select cdscod, cds, dtappello, count(DISTINCT ad) AS count
+            SELECT CdSCod, CdS, count(DISTINCT ad) AS count
             FROM bos_denormalizzato
-            GROUP BY dtappello, cds) AS c
+            GROUP BY dtappello, CdS)
+        GROUP BY cds) AS tutti
+        LEFT JOIN (
+        SELECT CdSCod, CdS, sum(count) AS sum_commit
+        FROM (
+            SELECT CdSCod, CdS, count(DISTINCT ad) AS count
+            FROM bos_denormalizzato
+            GROUP BY dtappello, CdS) AS c
         WHERE count>1
-        GROUP BY c.cds) AS commited
-        JOIN (
-        SELECT c2.cdscod, cds, dtappello, sum(count) AS sum_tutti
-        FROM (
-            SELECT cdscod, cds, dtappello, count(DISTINCT ad) AS count
-            FROM bos_denormalizzato
-            GROUP BY dtappello, cds) AS c2
-        GROUP BY c2.cds) AS tutti ON tutti.CdS=commited.CdS) AS res
-ORDER BY tasso_commit DESC
-LIMIT 10;
+        GROUP BY c.cds) AS commited ON tutti.CdS=commited.CdS) AS res
+ORDER BY tasso_commit DESC;
 
 
 -- query 4

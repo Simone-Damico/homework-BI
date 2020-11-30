@@ -51,22 +51,21 @@ SELECT res.CdS AS cds, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti AS tasso_
 FROM (
     SELECT *
     FROM (
-        SELECT c.cdscod, cds, dtappello, sum(count) AS sum_commit
+        SELECT cdscod, cds, sum(count) AS sum_tutti
         FROM (
-            select cds.cdscod, cds, dtappello, count(DISTINCT ad) AS count
+            SELECT cds.cdscod, cds, count(DISTINCT ad) AS count
+            FROM (cds JOIN appelli ON cds.cdscod=appelli.cdscod) JOIN ad ON appelli.adcod=ad.adcod
+            GROUP BY dtappello, cds)
+        GROUP BY cds) AS tutti
+        LEFT JOIN (
+                SELECT c.cdscod, cds, sum(count) AS sum_commit
+        FROM (
+            SELECT cds.cdscod, cds, count(DISTINCT ad) AS count
             FROM (cds JOIN appelli ON cds.cdscod=appelli.cdscod) JOIN ad ON appelli.adcod=ad.adcod
             GROUP BY dtappello, cds) AS c
         WHERE count>1
-        GROUP BY c.cds) AS commited
-        JOIN (
-        SELECT c2.cdscod, cds, dtappello, sum(count) AS sum_tutti
-        FROM (
-            SELECT cds.cdscod, cds, dtappello, count(DISTINCT ad) AS count
-            FROM (cds JOIN appelli ON cds.cdscod=appelli.cdscod) JOIN ad ON appelli.adcod=ad.adcod
-            GROUP BY dtappello, cds) AS c2
-        GROUP BY c2.cds) AS tutti ON tutti.CdS=commited.CdS) AS res
-ORDER BY tasso_commit DESC
-LIMIT 10;
+        GROUP BY c.cds) AS commited ON tutti.CdS=commited.CdS) AS res
+ORDER BY tasso_commit DESC;
 
 
 -- query 4

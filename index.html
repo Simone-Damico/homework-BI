@@ -328,7 +328,7 @@
                 <table class="sqlContainer">
                     <tr>
                         <td class="line"><b>1</b></td>
-                        <td class="codeLine"><code class="sql">CREATE TABLE <code class="nokey">cdscod, cds,</code> <code class="string">'20'</code><code class="nokey">||</code><code class="operation">substr</code><code class="nokey">(dtappello, -2)</code> AS <code class="nokey">year, <code class="operation">count</code>(*)</code> AS <code class="nokey">num</code></code></td>
+                        <td class="codeLine"><code class="sql">SELECT <code class="nokey">cdscod, cds,</code> <code class="string">'20'</code><code class="nokey">||</code><code class="operation">substr</code><code class="nokey">(dtappello, -2)</code> AS <code class="nokey">year, <code class="operation">count</code>(*)</code> AS <code class="nokey">num</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>2</b></td>
@@ -408,21 +408,21 @@
                 </tr>
                 <tr>
                     <td class="line"><b>5</b></td>
-                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; FROM <code class="nokey">(</code></code></td>
-                </tr>
-                <tr>
-                    <td class="line"><b>6</b></td>
                     <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; FROM <code class="nokey">(</code></code></td>
                 </tr>
                 <tr>
-                    <td class="line"><b>7</b></td>
-                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">bos_denormalizzato.adcod, bos_denormalizzato.CdS, bos_denormalizzato.ad,</code>
+                    <td class="line"><b>6</b></td>
+                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">b.adcod, b.CdS, b.ad,</code>
                         <code class="operation">substr</code><code class="nokey">(dtappello, -2)</code> AS <code class="nokey">year,</code></code></td>
                 </tr>
                 <tr>
-                    <td class="line"><b>8</b></td>
-                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <code class="nokey">bos_denormalizzato.adcod, </code><code class="operation">count</code><code class="nokey">(*)</code> AS <code class="nokey">num_iscr,</code>
+                    <td class="line"><b>7</b></td>
+                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <code class="nokey">b.cdscod, </code><code class="operation">count</code><code class="nokey">(*)</code> AS <code class="nokey">num_iscr,</code>
                         <code class="nokey">passati.num_sup</code> AS <code class="nokey">passati</code></code></td>
+                </tr>
+                <tr>
+                    <td class="line"><b>8</b></td>
+                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; FROM <code class="nokey">bos_denormalizzato</code> AS <code class="nokey">b</code></code></td>
                 </tr>
                 <tr>
                     <td class="line"><b>9</b></td>
@@ -448,13 +448,13 @@
                 </tr>
                 <tr>
                     <td class="line"><b>14</b></td>
-                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <code class="nokey">tab.adcod=passati.adcod</code> AND
-                        <code class="operation">substr</code><code class="nokey">(tab.dtappello, -2)=passati.year</code> AND <code class="nokey">tab.CdSCod=passati.CdSCod</code></code></td>
+                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <code class="nokey">b.adcod=passati.adcod</code> AND
+                        <code class="operation">substr</code><code class="nokey">(b.dtappello, -2)=passati.year</code> AND <code class="nokey">b.CdSCod=passati.CdSCod</code></code></td>
                 </tr>
                 <tr>
                     <td class="line"><b>15</b></td>
-                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">tab.adcod,</code> <code class="operation">substr</code><code class="nokey">(dtappello, -2), tab.cdscod,
-                        tab.ad)</code> AS <code class="nokey">res;</code></code></td>
+                    <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">b.adcod,</code> <code class="operation">substr</code><code class="nokey">(dtappello, -2), b.cdscod,
+                        b.ad)</code> AS <code class="nokey">res;</code></code></td>
                 </tr>
             </table>
         </div>
@@ -532,15 +532,15 @@
                 <table class="sqlContainer">
                     <tr>
                         <td class="line"><b>1</b></td>
-                        <td class="codeLine"><code class="sql">SELECT <code class="nokey">res.CdS, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti</code> AS <code class="nokey">tasso_commit</code></code></td>
+                        <td class="codeLine"><code class="sql">SELECT <code class="nokey">res.CdS</code> AS <code class="nokey">CdS, sum_commit, sum_tutti, sum_commit*1.0/sum_tutti</code> AS <code class="nokey">tasso_commit</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>2</b></td>
-                        <td class="codeLine"><code class="sql">FROM <code class="nokey">((</code></code></td>
+                        <td class="codeLine"><code class="sql">FROM <code class="nokey">(</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>3</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; SELECT <code class="nokey">*,</code> <code class="operation">sum</code><code class="nokey">(commited.count_tutti)</code> AS <code class="nokey">sum_tutti</code></code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; SELECT <code class="nokey">*</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>4</b></td>
@@ -548,62 +548,66 @@
                     </tr>
                     <tr>
                         <td class="line"><b>5</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">CdS, DtAppello,</code> <code class="operation">count</code><code class="nokey">(</code>DISTINCT <code class="nokey">ad)</code> AS <code class="nokey">count_tutti</code></code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">CdSCod, cds,</code> <code class="operation">sum</code><code class="nokey">(tutti.count_tutti)</code> AS <code class="nokey">sum_tutti</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>6</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; FROM <code class="nokey">bos_denormalizzato</code></code></td>
-                    </tr>
-                    <tr>
-                        <td class="line"><b>7</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">DtAppello, CdS)</code> AS <code class="nokey">commited</code></code></td>
-                    </tr>
-                    <tr>
-                        <td class="line"><b>8</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; GROUP BY <code class="nokey">commited.CdS)</code> AS <code class="nokey">tutti</code></code></td>
-                    </tr>
-                    <tr>
-                        <td class="line"><b>9</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; JOIN <code class="nokey">(</code></code></td>
-                    </tr>
-                    <tr>
-                        <td class="line"><b>10</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">*,</code> <code class="operation">sum</code><code class="nokey">(commited.count_commit)</code> AS <code class="nokey">sum_commit</code></code></td>
-                    </tr>
-                    <tr>
-                        <td class="line"><b>11</b></td>
                         <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; FROM <code class="nokey">(</code></code></td>
                     </tr>
                     <tr>
-                        <td class="line"><b>12</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">CdS, DtAppello,</code> <code class="operation">count</code><code class="nokey">(</code>DISTINCT <code class="nokey">ad)</code> AS <code class="nokey">count_commit</code></code></td>
+                        <td class="line"><b>7</b></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">CdSCod, CdS,</code> <code class="operation">count</code><code class="nokey">(</code>DISTINCT <code class="nokey">ad)</code> AS <code class="nokey">count_tutti</code></code></td>
                     </tr>
                     <tr>
-                        <td class="line"><b>13</b></td>
+                        <td class="line"><b>8</b></td>
                         <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; FROM <code class="nokey">bos_denormalizzato</code></code></td>
                     </tr>
                     <tr>
+                        <td class="line"><b>9</b></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">DtAppello, CdS)</code></code></td>
+                    </tr>
+                    <tr>
+                        <td class="line"><b>10</b></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">CdS)</code> AS <code class="nokey">tutti</code></code></td>
+                    </tr>
+                    <tr>
+                        <td class="line"><b>11</b></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; LEFT JOIN <code class="nokey">(</code></code></td>
+                    </tr>
+                    <tr>
+                        <td class="line"><b>12</b></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">CdSCod, CdS,</code> <code class="operation">sum</code><code class="nokey">(commited.count_commit)</code> AS <code class="nokey">sum_commit</code></code></td>
+                    </tr>
+                    <tr>
+                        <td class="line"><b>13</b></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; FROM <code class="nokey">(</code></code></td>
+                    </tr>
+                    <tr>
                         <td class="line"><b>14</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">DtAppello, CdS)</code> AS <code class="nokey">commited</code></code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; SELECT <code class="nokey">CdSCod, CdS,</code> <code class="operation">count</code><code class="nokey">(</code>DISTINCT <code class="nokey">ad)</code> AS <code class="nokey">count_commit</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>15</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; WHERE <code class="nokey">commited.count_commit > 1</code></code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; FROM <code class="nokey">bos_denormalizzato</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>16</b></td>
-                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">commited.CdS)</code> AS <code class="nokey">commited</code> ON <code class="nokey">tutti.CdS=commited.CdS</code> AND <code class="nokey">tutti.DtAppello=commited.DtAppello)</code> AS <code class="nokey">res</code></code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">DtAppello, CdS)</code> AS <code class="nokey">com</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>17</b></td>
-                        <td class="codeLine"><code class="sql">GROUP BY <code class="nokey">res.CdS</code></code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; WHERE <code class="nokey">com.count_commit > 1</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>18</b></td>
-                        <td class="codeLine"><code class="sql">ORDER BY <code class="nokey">tasso_commit</code> DESC</code></td>
+                        <td class="codeLine"><code class="sql">&nbsp;&nbsp; &nbsp;&nbsp; GROUP BY <code class="nokey">com.CdS)</code> AS <code class="nokey">commited</code> ON <code class="nokey">tutti.CdS=commited.CdS</code> AND <code class="nokey">tutti.DtAppello=commited.DtAppello)</code> AS <code class="nokey">res</code></code></td>
                     </tr>
                     <tr>
                         <td class="line"><b>19</b></td>
+                        <td class="codeLine"><code class="sql">ORDER BY <code class="nokey">tasso_commit</code> DESC</code></td>
+                    </tr>
+                    <tr>
+                        <td class="line"><b>20</b></td>
                         <td class="codeLine"><code class="sql">LIMIT <code class="nokey">10;</code></code></td>
                     </tr>
                 </table>
